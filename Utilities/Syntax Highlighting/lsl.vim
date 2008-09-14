@@ -1,7 +1,8 @@
 " Vim syntax file
 " Language:	Linden scripting language
-" Maintainer:	Gabriel Spinnaker (gs@geekmafia.net)
-" Last Change:	2007 Nov 25
+" Maintainer:	Falados Kapuskas (falados@gmail.com)
+" Last Change:	2008 Sept 14
+" LSL keywords updated 14 Sept 2008
 " LSL keywords updated 25 Nov 2007 from http://wiki.secondlife.com/wiki/LSL_Portal
 " LSL keywords updated 19 Dec 2006 for LSL 1.13 by http://adammarker.org/shill
 " Reg Expr updated 02 Lug 2007 for LSL by hachreak http://www.secondlifelab.it
