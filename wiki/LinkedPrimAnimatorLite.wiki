@@ -32,7 +32,10 @@ There are several features you should know about before you get LPAL so here is 
   # Although LPAL can handle practically any number of prims and snapshots, the less you use, the smoother the animation will be.
   # Prims can only be moved no more than 10 meters from the root prim (This is a SL Limitation)
 
-
+== SVN ==
+{{{
+svn checkout http://falados-secondlife.googlecode.com/svn/trunk/Projects/LPAL falados-secondlife-read-only
+}}}
 
 ==Legal/Copyleft==
 LPAL is free software: you can redistribute it and/or modify
