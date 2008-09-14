@@ -1,0 +1,11 @@
+==1.1==
+- Added color to each node and row indicating their LOD.
+    RED = LOD Low
+    GREEN = LOD Medium
+    BLUE = LOD High
+-Increased the threshold that resets nodes when they are stuck trying to collide with a physical object
+-Added utility script to make and object physical and keep it in place
+- Fixed vertex2sculpt.php
+    It now creates the directories that it previously was missing
+- Added reminder to replace the URL in the Open Loft Tool object
+- Added reminder to ENCLOSE a sculpt before RENDER
