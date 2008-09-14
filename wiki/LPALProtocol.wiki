@@ -1,4 +1,5 @@
 #summary Linked Message Protocol
+#labels Project-LPAL,Phase-Design
 
 = Introduction =
 
