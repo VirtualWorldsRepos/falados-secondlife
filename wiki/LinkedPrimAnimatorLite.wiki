@@ -1,0 +1,49 @@
+#labels Featured
+=Linked Prim Animator Lite=
+
+http://img254.imageshack.us/img254/6782/lpalitelogoox2.png
+
+==Introduction==
+Hello and thanks for checking out Linked Prim Animator Lite (LPAL). Using this set of open source scripts you'll be able to animate linked objects and attachments like a pro! And best of all, if it doesn't suite your needs, you may modify and tinker with the scripts until they work the way you like!
+
+LPAL is your open-source alternative for your linked prim animation needs. The LPAL Script set is an subset of one of my current projects Linked Prim Animator (LPA). I'm releasing a portion of it as open source under the GPL so that it may be used and improved upon.
+
+If you improve or otherwise modify it, be sure to release those changes so that the community can benefit. If you have a neat addition or upgrade to this script set, please shoot me an IM (Falados Kapuskas) and I'll be sure to check it out and try to work it into future versions of LPAL.
+
+There are several features you should know about before you get LPAL so here is the rundown:
+
+==Features / Limitations==
+
+===Features===
+
+  # LPAL is modular - Each LPAL Frame Capture script captures one clearly labeled element of the linked prims.
+  # LPAL is a dialog-based setup.
+  # LPAL has protection against lost dialogs
+  # Only the one LPAL Frame Controller needs to be copied into the linked prims you would like to track
+  # The LPAL link-message protocol is documented. You may use this to make scripts compatable with LPAL.
+  # Since LPAL is Open Source, you can freely modify it to suite your needs. Just make sure you release your chages to the public under the GPL.
+
+===Limitations===
+
+  # After you have quit the Wizard, it will default to deleting itself. This is to reduce lag. You may use the example replay script which is a small portion of the wizard (used exclusively for playback). You simply drag this script into the root and touch the object to begin.
+  # Resizing the object or otherwise altering it after the animation has been publish will most likely break the animation.
+  # Second Life has some interpolation (tweening), but it only goes so far. The animations will always look slightly choppy.
+  # LPA Will only record the quantity for which you have modules. You may freely make more modules as long as they are also released GPL (Derived Works)
+  # Although LPAL can handle practically any number of prims and snapshots, the less you use, the smoother the animation will be.
+  # Prims can only be moved no more than 10 meters from the root prim (This is a SL Limitation)
+
+
+
+==Legal/Copyleft==
+LPAL is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+LPAL is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with LPAL. If not, see [http://www.gnu.org/licenses/].
