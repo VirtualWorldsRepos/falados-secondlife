@@ -1,0 +1,120 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# SharpDevelop 3.0.0.3437
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3B78B02B-383A-467F-8C45-6B17BC1CF0E3}"
+	ProjectSection(SolutionItems) = postProject
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Loft", "Open Loft", "{37095BA6-628B-40C8-9BED-DA3702DE1D51}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\CHANGELOG.txt = ..\OpenLoft\CHANGELOG.txt
+		..\OpenLoft\COPYING.txt = ..\OpenLoft\COPYING.txt
+		..\OpenLoft\Physical-KeepStill.lsl = ..\OpenLoft\Physical-KeepStill.lsl
+		..\OpenLoft\README.txt = ..\OpenLoft\README.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Loft Tool", "Open Loft Tool", "{DDDE65E2-99AC-49B0-80EF-54270AFE797A}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\OpenLoft.lsl = ..\OpenLoft\Open Loft Tool\OpenLoft.lsl
+		..\OpenLoft\Open Loft Tool\OpenLoft URL = ..\OpenLoft\Open Loft Tool\OpenLoft URL
+		..\OpenLoft\Open Loft Tool\PolyRez.lsl = ..\OpenLoft\Open Loft Tool\PolyRez.lsl
+		..\OpenLoft\Open Loft Tool\Polyrez Parameters = ..\OpenLoft\Open Loft Tool\Polyrez Parameters
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sculpt", "sculpt", "{FA552F03-8634-4A04-B80B-1A1CEC4D15DB}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\sculpt\HTTP Sender.lsl = ..\OpenLoft\Open Loft Tool\sculpt\HTTP Sender.lsl
+		..\OpenLoft\Open Loft Tool\sculpt\Node Control.lsl = ..\OpenLoft\Open Loft Tool\sculpt\Node Control.lsl
+		..\OpenLoft\Open Loft Tool\sculpt\State Control.lsl = ..\OpenLoft\Open Loft Tool\sculpt\State Control.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "node", "node", "{72CA1E6F-AC23-48FB-B1F4-EA28FA599F27}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\sculpt\node\Node.lsl = ..\OpenLoft\Open Loft Tool\sculpt\node\Node.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Website Scripts", "Website Scripts", "{DB93B399-2A6E-4DE6-BF4B-5427F8404DD2}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Website Scripts\http_request.inc.php = ..\OpenLoft\Website Scripts\http_request.inc.php
+		..\OpenLoft\Website Scripts\openloft_config.inc.php = ..\OpenLoft\Website Scripts\openloft_config.inc.php
+		..\OpenLoft\Website Scripts\vertex2sculpt.php = ..\OpenLoft\Website Scripts\vertex2sculpt.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Babel Fish", "Open Babel Fish", "{4D550A2C-60C9-4143-A7E9-826574AA9F93}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenBabelFish\babel.php = ..\OpenBabelFish\babel.php
+		..\OpenBabelFish\Changelog.txt = ..\OpenBabelFish\Changelog.txt
+		..\OpenBabelFish\Copying.txt = ..\OpenBabelFish\Copying.txt
+		..\OpenBabelFish\lang-sl.txt = ..\OpenBabelFish\lang-sl.txt
+		..\OpenBabelFish\lang-tl.txt = ..\OpenBabelFish\lang-tl.txt
+		..\OpenBabelFish\Open Babel Fish.lsl = ..\OpenBabelFish\Open Babel Fish.lsl
+		..\OpenBabelFish\Open Babel Fish Dialog.lsl = ..\OpenBabelFish\Open Babel Fish Dialog.lsl
+		..\OpenBabelFish\Open Babel Fish Query.lsl = ..\OpenBabelFish\Open Babel Fish Query.lsl
+		..\OpenBabelFish\ReadMe.txt = ..\OpenBabelFish\ReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Linked Prim Animator Lite", "Linked Prim Animator Lite", "{676ECBF3-EC20-495B-913F-E9809A5C70F0}"
+	ProjectSection(SolutionItems) = postProject
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{69EEE87C-E020-45C9-87A1-14346394890E}"
+	ProjectSection(SolutionItems) = postProject
+		..\LPAL\Documentation\COPYING.txt = ..\LPAL\Documentation\COPYING.txt
+		..\LPAL\Documentation\Example Replay Script (Put in Root).lsl = ..\LPAL\Documentation\Example Replay Script (Put in Root).lsl
+		..\LPAL\Documentation\LPA Readme.txt = ..\LPAL\Documentation\LPA Readme.txt
+		..\LPAL\Documentation\LPAL Protocol.txt = ..\LPAL\Documentation\LPAL Protocol.txt
+		..\LPAL\Documentation\LPAL Protocol.xls = ..\LPAL\Documentation\LPAL Protocol.xls
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Children", "Children", "{562E9EAB-074F-409C-88B5-9F3B5CA4F4FF}"
+	ProjectSection(SolutionItems) = postProject
+		..\LPAL\Children\LPA Frame Controller.lsl = ..\LPAL\Children\LPA Frame Controller.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{34BEDBB6-0C6F-4A92-B498-157B2BE854A5}"
+	ProjectSection(SolutionItems) = postProject
+		..\LPAL\Root\LPA Editor.lsl = ..\LPAL\Root\LPA Editor.lsl
+		..\LPAL\Root\LPA Player.lsl = ..\LPAL\Root\LPA Player.lsl
+		..\LPAL\Root\LPA Wizard.lsl = ..\LPAL\Root\LPA Wizard.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Recording Modules", "Recording Modules", "{BBD5B517-8B59-43A6-9333-95CF2516BFBD}"
+	ProjectSection(SolutionItems) = postProject
+		..\LPAL\Root\Recording Modules\LPA Frame Capture (Position).lsl = ..\LPAL\Root\Recording Modules\LPA Frame Capture (Position).lsl
+		..\LPAL\Root\Recording Modules\LPA Frame Capture (Rotation).lsl = ..\LPAL\Root\Recording Modules\LPA Frame Capture (Rotation).lsl
+		..\LPAL\Root\Recording Modules\LPA Frame Capture (Scale).lsl = ..\LPAL\Root\Recording Modules\LPA Frame Capture (Scale).lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module Template", "Module Template", "{D04F3946-332D-41B7-8018-A7510DB53257}"
+	ProjectSection(SolutionItems) = postProject
+		..\LPAL\Root\Recording Modules\Module Template\Generate All Modules.py = ..\LPAL\Root\Recording Modules\Module Template\Generate All Modules.py
+		..\LPAL\Root\Recording Modules\Module Template\LPA Module Template.lsl = ..\LPAL\Root\Recording Modules\Module Template\LPA Module Template.lsl
+		..\LPAL\Root\Recording Modules\Module Template\Position.py = ..\LPAL\Root\Recording Modules\Module Template\Position.py
+		..\LPAL\Root\Recording Modules\Module Template\Rotation.py = ..\LPAL\Root\Recording Modules\Module Template\Rotation.py
+		..\LPAL\Root\Recording Modules\Module Template\Scale.py = ..\LPAL\Root\Recording Modules\Module Template\Scale.py
+		..\LPAL\Root\Recording Modules\Module Template\Template.py = ..\LPAL\Root\Recording Modules\Module Template\Template.py
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{676ECBF3-EC20-495B-913F-E9809A5C70F0} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
+		{4D550A2C-60C9-4143-A7E9-826574AA9F93} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
+		{37095BA6-628B-40C8-9BED-DA3702DE1D51} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
+		{DB93B399-2A6E-4DE6-BF4B-5427F8404DD2} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
+		{DDDE65E2-99AC-49B0-80EF-54270AFE797A} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
+		{FA552F03-8634-4A04-B80B-1A1CEC4D15DB} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
+		{72CA1E6F-AC23-48FB-B1F4-EA28FA599F27} = {FA552F03-8634-4A04-B80B-1A1CEC4D15DB}
+		{34BEDBB6-0C6F-4A92-B498-157B2BE854A5} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
+		{562E9EAB-074F-409C-88B5-9F3B5CA4F4FF} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
+		{69EEE87C-E020-45C9-87A1-14346394890E} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
+		{BBD5B517-8B59-43A6-9333-95CF2516BFBD} = {34BEDBB6-0C6F-4A92-B498-157B2BE854A5}
+		{D04F3946-332D-41B7-8018-A7510DB53257} = {BBD5B517-8B59-43A6-9333-95CF2516BFBD}
+	EndGlobalSection
+EndGlobal
