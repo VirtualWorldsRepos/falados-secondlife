@@ -746,10 +746,8 @@ syn keyword	lConstant PSYS_SRC_BURST_RADIUS
 syn keyword	lConstant PSYS_SRC_BURST_RATE
 syn keyword	lConstant PSYS_SRC_BURST_SPEED_MAX
 syn keyword	lConstant PSYS_SRC_BURST_SPEED_MIN
-syn keyword	lConstant PSYS_SRC_INNERANGLE
 syn keyword	lConstant PSYS_SRC_MAX_AGE
 syn keyword	lConstant PSYS_SRC_OMEGA
-syn keyword	lConstant PSYS_SRC_OUTERANGLE
 syn keyword	lConstant PSYS_SRC_PATTERN
 syn keyword	lConstant PSYS_SRC_PATTERN_ANGLE
 syn keyword	lConstant PSYS_SRC_PATTERN_ANGLE_CONE
@@ -847,7 +845,7 @@ syn keyword	lConstant PI
 syn keyword	lConstant PI_BY_TWO
 syn keyword	lConstant DEG_TO_RAD
 
-" String Consants
+" String Constants
 syn keyword	lConstant EOF
 syn keyword	lConstant NULL_KEY
 syn keyword	lConstant TEXTURE_BLANK
@@ -1229,6 +1227,12 @@ syn keyword lDeprecated llSound llSoundPreload llRemoteLoadScript llMakeExplosio
 " Deprecated constants (as of 1.5.x)
 syn keyword lDeprecated PSYS_SRC_INNERANGLE PSYS_SRC_OUTERANGLE
 
+" God functions
+syn keyword lGodFunction llGodLikeRezObject llSetInventoryPermMask llSetObjectPermMask
+
+" Unimplemented Functions
+syn keyword lNonFuctions llPointAt llRefreshPrimURL llReleaseCamera llSetPrimURL llStopPointAt llTextBox
+
 if version >= 508 || !exists("did_b_syntax_inits")
    if version < 508
       let did_b_syntax_inits = 1
@@ -1260,6 +1264,8 @@ if version >= 508 || !exists("did_b_syntax_inits")
   HiLink lString		String
   HiLink lComment		Comment
   HiLink lDeprecated		Error
+  HiLink lGodFunction		Error
+  HiLink lNonFunctions		Error
   HiLink lTodo			Todo
 
   delcommand HiLink
