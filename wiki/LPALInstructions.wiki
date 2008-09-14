@@ -1,4 +1,5 @@
 #summary Step by Step Instructions
+#labels Phase-Deploy
 
 =Linked Prim Animator Lite=
 By: Falados Kapuskas 
