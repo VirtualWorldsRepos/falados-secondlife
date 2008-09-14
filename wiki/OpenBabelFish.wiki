@@ -67,6 +67,10 @@ _V1.1_
     * Fixed a few bugs (Moderate and Show-stopper)
     * Added rate limiting. Translations only happen once per second to avoid the rate limit on HTTP requests. The translation requests queue up if they happen more than 1/sec. This is good for crowds and ensures translations still happen in the order they come in.
 
+== SVN ==
+{{{
+svn checkout http://falados-secondlife.googlecode.com/svn/trunk/Projects/OpenBabelFish falados-secondlife-read-only
+}}}
 
 ==Legal/Copyleft==
 Open Babel Fish is free software: you can redistribute it and/or modify
