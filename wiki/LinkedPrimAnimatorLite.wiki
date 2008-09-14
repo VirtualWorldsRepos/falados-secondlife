@@ -1,4 +1,4 @@
-#labels Featured
+#labels Featured,Project-LPAL
 =Linked Prim Animator Lite=
 
 http://img254.imageshack.us/img254/6782/lpalitelogoox2.png
