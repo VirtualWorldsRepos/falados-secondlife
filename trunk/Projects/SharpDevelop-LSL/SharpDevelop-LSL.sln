@@ -41,6 +41,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Website Scripts", "Website 
 		..\OpenLoft\Website Scripts\vertex2sculpt.php = ..\OpenLoft\Website Scripts\vertex2sculpt.php
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sculpt Preview", "Sculpt Preview", "{34D9AC00-1B2D-4CE5-BF52-B042B8CBA7B3}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Sculpt Preview\focus.lsl = ..\OpenLoft\Sculpt Preview\focus.lsl
+		..\OpenLoft\Sculpt Preview\pixel-master.lsl = ..\OpenLoft\Sculpt Preview\pixel-master.lsl
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Babel Fish", "Open Babel Fish", "{4D550A2C-60C9-4143-A7E9-826574AA9F93}"
 	ProjectSection(SolutionItems) = postProject
 		..\OpenBabelFish\babel.php = ..\OpenBabelFish\babel.php
@@ -107,6 +113,7 @@ Global
 		{676ECBF3-EC20-495B-913F-E9809A5C70F0} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
 		{4D550A2C-60C9-4143-A7E9-826574AA9F93} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
 		{37095BA6-628B-40C8-9BED-DA3702DE1D51} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
+		{34D9AC00-1B2D-4CE5-BF52-B042B8CBA7B3} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
 		{DB93B399-2A6E-4DE6-BF4B-5427F8404DD2} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
 		{DDDE65E2-99AC-49B0-80EF-54270AFE797A} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
 		{FA552F03-8634-4A04-B80B-1A1CEC4D15DB} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
