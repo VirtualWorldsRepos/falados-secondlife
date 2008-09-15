@@ -16,6 +16,8 @@
 //	Authors: Falados Kapuskas, JoeTheCatboy Freelunch
 
 //-- CONSTANTS --//
+integer DISPLAY_CHANNEL 	= -131415;
+integer DATA_CHANNEL 		= 0;
 integer	BROADCAST_CHANNEL	 = -234567;
 integer SUCCESS_CHANNEL		= -2001;
 integer ERROR_CHANNEL		= -2002;
@@ -30,12 +32,25 @@ integer MY_ROW;	//Set on_rez
 //-- GLOBALS --//
 key gHTTPRequest;
 integer gListenHandle_URL;
+integer gListenHandle_DISPLAY;
 //-- FUNCTIONS --//
 
 sendNodes(integer row, string data) {
-	MY_ROW = row;
-	string request = "action=upload&row=" + (string)row;
-	gHTTPRequest = llHTTPRequest(URL + request,HTTP_PARAMS,"verts=" + llEscapeURL(data));
+
+	if(DATA_CHANNEL != 0)
+	{
+		list l = llCSV2List(data);
+		if( llGetListLength(l) > 1) {
+			llSay(DATA_CHANNEL,llList2CSV([0]+llList2List(l,0,15)));
+			llSay(DATA_CHANNEL,llList2CSV([16]+llList2List(l,16,-1)));
+		} else {
+			llSay(DATA_CHANNEL,data);
+		}
+	} else {
+		MY_ROW = row;
+		string request = "action=upload&row=" + (string)row;
+		gHTTPRequest = llHTTPRequest(URL + request,HTTP_PARAMS,"verts=" + llEscapeURL(data));	
+	}
 }
 
 //-- STATES --//
@@ -43,13 +58,23 @@ sendNodes(integer row, string data) {
 default {
 	on_rez(integer param) {
 		if( param != 0)
+		{
 			gListenHandle_URL = llListen(BROADCAST_CHANNEL,"","","");
+			gListenHandle_DISPLAY = llListen(DISPLAY_CHANNEL,"","","");
+		}
 	}
 	listen(integer channel, string name, key id, string msg) {
-		if( llGetOwner() == llGetOwnerKey(id) ) {
+		if( llGetOwner() != llGetOwnerKey(id)) return;
+		
+		if(channel == BROADCAST_CHANNEL) 
+		{
 			llListenRemove(gListenHandle_URL);
 			URL = llStringTrim(msg,STRING_TRIM);
 			if( llSubStringIndex(URL,"?") == -1) URL = URL + "?";
+		} else
+		if(channel == DISPLAY_CHANNEL)
+		{
+			DATA_CHANNEL = (integer)msg;
 		}
 	}
 
@@ -66,7 +91,7 @@ default {
 			if( llStringTrim(message,STRING_TRIM) == "") {
 				llShout(SUCCESS_CHANNEL,(string)MY_ROW);
 			} else {
-					llShout(ERROR_CHANNEL,(string)MY_ROW + ": " + message);
+				llShout(ERROR_CHANNEL,(string)MY_ROW + ": " + message);
 			}
 		}
 	}
