@@ -19,7 +19,8 @@
 list HTTP_PARAMS = [
 	HTTP_METHOD, "POST",
 	HTTP_MIMETYPE,"application/x-www-form-urlencoded"
-		];
+];
+
 string  NODE_NAME = "sculpt";
 integer BROADCAST_CHANNEL = -234567;
 integer DIALOG_CHANNEL  = 4209249;
@@ -118,8 +119,8 @@ default
 				llShout(-2000,"scale");
 				llListenRemove(gListenHandle_Enclose);
 				gListenHandle_Enclose = llListen(-2000,"","","");
-				bbox_lower = <999,999,999>;
-				bbox_higher = <-999,-999,-999>;
+				bbox_lower = <9999,9999,9999>;
+				bbox_higher = <-9999,-9999,-9999>;
 				llResetTime();
 				llSetTimerEvent(15.0);
 			}
