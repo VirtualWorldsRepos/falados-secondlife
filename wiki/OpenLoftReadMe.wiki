@@ -25,8 +25,8 @@ There are 3 scripts are included in the object called 'Website Scripts'
  # openloft_config.inc.php
  # http_request.inc.php
 
-Upload these scripts to any directory on your website. 
-Be sure to make note of thee URL of the vertex2sculpt.php
+Upload these 3 scripts to any directory on your website. 
+Be sure to make note of the URL of the vertex2sculpt.php
 
 ==Step 3 : Editing the URL Notecard==
  # Rez the Open Loft Tool object.
