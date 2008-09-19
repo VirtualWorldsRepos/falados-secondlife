@@ -1,4 +1,6 @@
+#summary ReadMe for the Open Loft Open Source In-World Sculpting Tool
 #labels Project-OpenLoft,Phase-Deploy
+
 =Introduction=
 Thanks for Downloading !OpenLoft!
 
@@ -28,13 +30,13 @@ Be sure to make note of thee URL of the vertex2sculpt.php
 
 ==Step 3 : Editing the URL Notecard==
  # Rez the Open Loft Tool object.
- # Replace the the contents of the 'OpenLoft URL' notecard with the URL to vertex2sculpt.php
+ # Replace the the contents of the '!OpenLoft URL' notecard with the URL to vertex2sculpt.php
    * E.g. : http://example.com/openloft/vertex2sculpt.php
  # Take a copy of the Open Loft Tool object. This is so that you have a copy readily available with the URL already inside of it.
 
 ==Step 4 : Start Sculpting ==
  # Click on the Open Loft Tool to bring up a menu.
- # Click [REZ] to Rez the discs
+ # Click [!REZ] to Rez the discs
  # Start Sculpting
 
 =The Open Loft Tool Menu=
@@ -83,11 +85,11 @@ Instructs all detached nodes to attempt a cross-section of physical objects.  Th
 of the disc until they either reach the center, or hit a physical object.  If they do not hit a physical object, they will retry this process three times until it ultimately fails, then they will return to the position before the CSECT command.
 
 ==ENCLOSE==
-The OpenLoftTool will attempt to enclose all nodes/discs of the sculpture. 
+The !OpenLoftTool will attempt to enclose all nodes/discs of the sculpture. 
 USE THIS COMMAND BEFORE THE RENDER COMMAND.
 
 Auto-encloser maximizes the size of the sculpture and ensures that no space is wasted.
-If you want to hav very small sculptures you can scale the OpenLoftTool bigger than the discs inside, which will make the resulting sculpture smaller than normal.
+If you want to hav very small sculptures you can scale the !OpenLoftTool bigger than the discs inside, which will make the resulting sculpture smaller than normal.
 
 ==SMOOTH==
 Allows you to pick from three different vertex smoothing algorithms.
