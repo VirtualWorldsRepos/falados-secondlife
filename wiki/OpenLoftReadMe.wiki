@@ -1,33 +1,41 @@
 #labels Project-OpenLoft,Phase-Deploy
 =Introduction=
-Thanks for Downloading OpenLoft!
+Thanks for Downloading !OpenLoft!
 
 This tool is designed to help builders create sculpted prims in world. This readme should
 give you a rough idea of how to get up and running with open loft.
 
 =Quick Start Guide=
 
-==Step 1==
-The first thing you must do is get online web space. Now this isn't as difficult as it sounds. A lot of places have some free limited web space, but you need to be picky about which one you get. The on I used is [http://www.x10hosting.com/] and they've been very good so far.  You must apply for their Intermediate PHP version, which they usually accepts without question. This version will give you access to the required php functions that are otherwise restricted.
+==Step 1 : Acquire your own website==
+_If you already have your own site, skip this step_
+
+The first thing you must do is get online web space. Now this isn't as difficult as it sounds. A lot of places have some free limited web space, but you need to be picky about which one you get. The one I used is [http://www.x10hosting.com/] and they've been very good so far.
 
 A list of other sites can be found here which have a lot of specifications:
     [http://www.free-webhosts.com/free-php-webhosting.php]
     
 You'll need the ability to write files with PHP and also the GD library so that PHP can also construct images (the backbone of the sculpt rendering system)
 
-==Step 2==
-Rez the Open Loft Tool object.
+==Step 2 : Load Website Scripts==
+There are 3 scripts are included in the object called 'Website Scripts'
+ # vertex2sculpt.php
+ # openloft_config.inc.php
+ # http_request.inc.php
 
-==Step 3==
-Put the URL of the vertext2sculpt.php file in the OpenLoft URL notecard.
---Example--
-http://example.com/example_site/vertex2sculpt.php
+Upload these scripts to any directory on your website. 
+Be sure to make note of thee URL of the vertex2sculpt.php
 
-==Step 4==
-Take a copy of the Open Loft Tool object. This is so that you have a copy readily available with the URL already inside of it.
+==Step 3 : Editing the URL Notecard==
+ # Rez the Open Loft Tool object.
+ # Replace the the contents of the 'OpenLoft URL' notecard with the URL to vertex2sculpt.php
+   * E.g. : http://example.com/openloft/vertex2sculpt.php
+ # Take a copy of the Open Loft Tool object. This is so that you have a copy readily available with the URL already inside of it.
 
-==Step 5==
-Click on the Open Loft Tool to bring up a menu and start sculpting
+==Step 4 : Start Sculpting ==
+ # Click on the Open Loft Tool to bring up a menu.
+ # Click [REZ] to Rez the discs
+ # Start Sculpting
 
 =The Open Loft Tool Menu=
 
