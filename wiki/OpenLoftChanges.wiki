@@ -10,8 +10,7 @@
     Rez the object next to your completed sculpture, press the green button at the top. 
     Now when you press RENDER, the sculpt preview object will draw the texture on the surface.
     To save this texture, simply sit on the orb and configure your SNAPSHOP window.
-    You either save this texture to your harddrive and play with it outside of SL, or you can upload for 10L
-    and start using it right away
+    You save this texture to your harddrive and play with it outside of SL, or upload it right away for 10L
 ==v1.1==
  * Added color to each node and row indicating their LOD.
    * RED = LOD Low
