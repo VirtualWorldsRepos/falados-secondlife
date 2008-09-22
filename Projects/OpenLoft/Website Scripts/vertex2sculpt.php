@@ -17,6 +17,7 @@
 //	Authors: Falados Kapuskas, JoeTheCatboy Freelunch
 
 require_once('openloft_config.inc.php');
+require_once('func.gdbundle.php');
 
 if( defined(ENABLE_AUTH) && !$is_allowed) die('Not Allowed');
 
