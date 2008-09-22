@@ -20,12 +20,13 @@ A list of other sites can be found here which have a lot of specifications:
 You'll need the ability to write files with PHP and also the GD library so that PHP can also construct images (the backbone of the sculpt rendering system)
 
 ==Step 2 : Load Website Scripts==
-There are 3 scripts are included in the object called 'Website Scripts'
+There are 4 scripts are included in the object called 'Website Scripts'
  # vertex2sculpt.php
  # openloft_config.inc.php
  # http_request.inc.php
+ # func.gdbundle.php
 
-Upload these 3 scripts to any directory on your website. 
+Upload all 4 of these scripts to any directory on your website. 
 Be sure to make note of the URL of the vertex2sculpt.php
 
 ==Step 3 : Editing the URL Notecard==
