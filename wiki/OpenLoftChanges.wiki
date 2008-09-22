@@ -1,0 +1,25 @@
+#summary Change Log for Open Loft
+#labels Featured,Project-OpenLoft,Phase-Requirements
+
+==v1.3==
+ * Added a work-around for image convolution (Smoothing functions) on PHP versions < 5.10
+ 
+==v1.2==
+ * Added Sculpt Preview
+    This object allows you to view and save your sculpty in-world without the assistance of a webserver
+    Rez the object next to your completed sculpture, press the green button at the top. 
+    Now when you press RENDER, the sculpt preview object will draw the texture on the surface.
+    To save this texture, simply sit on the orb and configure your SNAPSHOP window.
+    You either save this texture to your harddrive and play with it outside of SL, or you can upload for 10L
+    and start using it right away
+==v1.1==
+ * Added color to each node and row indicating their LOD.
+   * RED = LOD Low
+   * GREEN = LOD Medium
+   * BLUE = LOD High
+ * Increased the threshold that resets nodes when they are stuck trying to collide with a physical object
+ * Added utility script to make and object physical and keep it in place
+ * Fixed vertex2sculpt.php
+    It now creates the directories that it previously was missing
+ * Added reminder to replace the URL in the Open Loft Tool object
+ * Added reminder to ENCLOSE a sculpt before RENDER
