@@ -10,32 +10,7 @@ integer MAX_INTER_POINTS;
 integer gListenHandle;
 integer gPointType;
 
-//Shoot a beam of particles from one node to the next
-particleBeam(key target)
-{
-    if( target)
-        llParticleSystem([
-            PSYS_PART_FLAGS,
-                PSYS_PART_EMISSIVE_MASK|
-                PSYS_PART_FOLLOW_VELOCITY_MASK|
-                PSYS_PART_TARGET_LINEAR_MASK|
-                PSYS_PART_TARGET_POS_MASK|
-                PSYS_PART_WIND_MASK,
-            PSYS_SRC_PATTERN,PSYS_SRC_PATTERN_ANGLE,
-            PSYS_SRC_BURST_RADIUS,0.000000,
-            PSYS_SRC_ANGLE_BEGIN,0.000000,
-            PSYS_SRC_TARGET_KEY,target,
-            PSYS_PART_START_COLOR,<1.000000, 1.000000, 1.000000>,
-            PSYS_PART_START_ALPHA,1.000000,
-            PSYS_PART_START_SCALE,<0.050000, 0.100000, 0.000000>,
-            PSYS_SRC_TEXTURE,"5748decc-f629-461c-9a36-a35a221fe21f",
-            PSYS_PART_MAX_AGE,1.000000,
-            PSYS_SRC_BURST_RATE,0.1,
-            PSYS_SRC_BURST_PART_COUNT,1
-        ]);
-    else llParticleSystem([]);
-}
-processRootCommands(string message)
+integer processRootCommands(string message)
 {
     if( llSubStringIndex(message,"#ctrl#") == 0 )
     {
@@ -45,9 +20,9 @@ processRootCommands(string message)
         if( CONTROL_POINT_NUM == -1) llDie();
         if(CONTROL_POINT_NUM == 0 || CONTROL_POINT_NUM == MAX_CONTROL_POINTS-1 || gPointType == 1)
         {
-            state anchor_point_loop;
+            return 1;
         } else {
-            state control_point_loop;
+            return 0;
         }        
     }
     if( llSubStringIndex(message,"#setup#") == 0)
@@ -61,12 +36,13 @@ processRootCommands(string message)
         integer anchor = llListFindList(parameters,[(string)llGetKey()]);
         if(CONTROL_POINT_NUM == 0 || CONTROL_POINT_NUM == MAX_CONTROL_POINTS-1 || anchor != -1)
         {
-            state anchor_point_loop;
+            return 1;
         } else {
-            state control_point_loop;
+            return 0;
         }
     }
-    if( message == "#die#") { llDie(); }  
+    if( message == "#die#") { llDie(); }
+    return -1;
 }
 
 //Get Access Allowed/Denited
@@ -102,21 +78,9 @@ default
     }
     listen(integer channel, string name, key id, string message)
     {
-        processRootCommands(message);
-    }
-    sensor(integer n)
-    {
-        integer i;
-        integer num;
-        for(i = 0; i < n; ++i)
-        {
-            num = llList2Integer(llGetObjectDetails(llDetectedKey(i),[OBJECT_DESC]),0);
-            if( num == CONTROL_POINT_NUM + 1)
-            {
-                particleBeam(llDetectedKey(i));
-                return;
-            }
-        }
+        integer i = processRootCommands(message);
+        if( i == 0 ) state control_point_loop;
+        if( i == 1 ) state anchor_point_loop;
     }
 }
 
@@ -134,7 +98,9 @@ state control_point
     }
     listen(integer channel, string name, key id, string message)
     {
-        processRootCommands(message);
+        integer i = processRootCommands(message);
+        if( i == 0 ) state control_point_loop;
+        if( i == 1 ) state anchor_point_loop;
     }
     touch_end(integer i)
     {
@@ -156,7 +122,9 @@ state anchor_point
     }
     listen(integer channel, string name, key id, string message)
     {
-        processRootCommands(message);
+        integer i = processRootCommands(message);
+        if( i == 0 ) state control_point_loop;
+        if( i == 1 ) state anchor_point_loop;
     }
     touch_end(integer i)
     {
