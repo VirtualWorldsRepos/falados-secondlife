@@ -15,7 +15,7 @@
  * Extracted functions into duplicateable Tools
    * Encloser Tool
    * Mirror Tool
-     * Mirror position around and combination of x/y/z axes
+     * Mirror position around any combination of x/y/z axes
    * Copy Tool
      * Copy ranges of disks onto other ranges
      * Mirror ranges of disks onto other ranges
