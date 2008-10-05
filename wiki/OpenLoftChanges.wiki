@@ -1,6 +1,26 @@
 #summary Change Log for Open Loft
 #labels Featured,Project-OpenLoft,Phase-Requirements
 
+==v2.0==
+*Completely Redone*
+
+ * Fixed many bugs
+ * Support for Oblong Sculpts (eg: 16x64 , 8x128 , 4x256 )
+ * Removed Sculpt Preview (No longer works for oblong sculpts)
+ * Removed PolyRez
+   * Disks are positioned by Bezier Curves
+   * Can add/remove anchor/control points
+   * Bezier can be turned on/off with the menu buttons
+ * Changed Default Menu
+ * Extracted functions into duplicateable Tools
+   * Encloser Tool
+   * Mirror Tool
+     * Mirror position around and combination of x/y/z axes
+   * Copy Tool
+     * Copy ranges of disks onto other ranges
+     * Mirror ranges of disks onto other ranges
+     * Interpolate Scale / Position / Rotation / Node Data
+
 ==v1.3==
  * Added a work-around for image convolution (Smoothing functions) on PHP versions < 5.10
  
