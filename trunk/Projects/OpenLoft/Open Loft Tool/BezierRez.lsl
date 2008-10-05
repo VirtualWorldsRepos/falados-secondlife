@@ -111,7 +111,7 @@ default
         {
             gAnnounceFinish = FALSE;
             vector p = llGetPos();
-            gRezState = 0;
+            gRezState = 2;
             list details = llGetObjectDetails(llList2Key(gControlPoints,-1),[OBJECT_POS,OBJECT_ROT]);
             vector pos = llList2Vector(details,0);
             rotation rot = llList2Rot(details,1);
@@ -154,12 +154,19 @@ default
         {
             if(!rez_disk(++gDiskNum))
             {
-                gRezState = 2;
+                gRezState = -1;
             }
+        }
+        if( gRezState == 2 )
+        {
+            gRezState = -1;
+            gControlPoints =(gControlPoints=[])+gControlPoints+[k];
+            llRegionSay(CHANNEL,"#ctrl#"+llList2CSV(gControlPoints));
+            llSleep(.20);
+            llRegionSay(CHANNEL,"#anchors#"+llList2CSV(gAnchorPoints));
         }
         if( gRezed >= (CONTROL_POINTS + INTERP_POINTS) )
         {
-            gRezed = 0;
             llSetText("",ZERO_VECTOR,0.0);
             llRegionSay(CHANNEL,"#ctrl#"+llList2CSV(gControlPoints));
             if(gAnnounceFinish) llMessageLinked(LINK_THIS,0,"","#rez_fin#");

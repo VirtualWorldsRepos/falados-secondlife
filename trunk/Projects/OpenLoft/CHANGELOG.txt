@@ -1,11 +1,12 @@
 #summary Change Log for Open Loft
+
 ==v2.0==
 *Completely Redone*
 
  * Fixed many bugs
  * Support for Oblong Sculpts (eg: 16x64 , 8x128 , 4x256 )
  * Removed Sculpt Preview (No longer works for oblong sculpts)
- * Removed PolyRez
+ * Removed !PolyRez
    * Disks are positioned by Bezier Curves
    * Can add/remove anchor/control points
    * Bezier can be turned on/off with the menu buttons
@@ -13,7 +14,7 @@
  * Extracted functions into duplicateable Tools
    * Encloser Tool
    * Mirror Tool
-     * Mirror position around and combination of x/y/z axes
+     * Mirror position around any combination of x/y/z axes
    * Copy Tool
      * Copy ranges of disks onto other ranges
      * Mirror ranges of disks onto other ranges

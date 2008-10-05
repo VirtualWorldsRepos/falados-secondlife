@@ -23,18 +23,23 @@ list HTTP_PARAMS = [
 
 list MAIN_DIALOG = [
 "[RESOLUTION] Change Resolution","RESOLUTION",
-"[REZ] Creates disk column","REZ",
-"[REZ2] Creates a Torus","REZ2",
+"[REZ] Open the Rez MEnu","REZ",
 "[RENDERING] Render Menu","RENDERING",
 "[TOOLS] Tools Menu","TOOLS",
 "[SPLINE] Spline Menu","SPLINE",
-"[ACCESS] Access Levels","ACCESS"
+"[ACCESS] Access Levels","ACCESS",
+"[CLEANUP] Delete Everything","CLEANUP"
+];
+
+list REZ_DIALOG = [
+    "[REZ_C] Creates a Column","REZ_C",
+    "[REZ_T] Creates a Torus","REZ_T"
 ];
 
 list RENDER_DIALOG = 
 [
-"[RENDER] Render Menu","RENDER",
-"[ENCLOSE] Auto-encloses the sculpture","ENCLOSE",
+"[ENCLOSER] Rez an encloser.","ENCLOSER",
+"[RENDER] Render the sculpt under the encloser.","RENDER",
 "[SMOOTH] Change the smoothing parameter","SMOOTH"
 ];
 
@@ -93,6 +98,7 @@ integer BROADCAST_CHANNEL;
 integer CHANNEL_MASK = 0xFFFFFF00;
 integer CONTROL_POINT_MASK = 0xFF;
 integer DIALOG_CHANNEL  = 4209249;
+integer ENCLOSE_CHANNEL;
 integer RESOLUTION_CHANNEL = 123913;
 integer MAX_NODES       = 32;
 integer ENCLOSED        = FALSE;
@@ -105,6 +111,10 @@ key gDataserverRequest;
 key gHTTPRequest;
 string gBlurType = "none";
 integer gHasRezed;
+integer gRenderOnDataserver;
+integer gToolRez;
+vector gEncloseScale = ZERO_VECTOR;
+vector gEnclosePos = ZERO_VECTOR;
 integer gListenHandle_Broadcast;
 integer gListenHandle_Enclose;         //Listen for Nodes
 integer gListenHandle_Agent;         //Avatar listen callback
@@ -120,6 +130,8 @@ vector bbox_higher;
 
 rezSculptNodes(integer i)
 {
+    gEncloseScale = ZERO_VECTOR;
+    gEnclosePos = ZERO_VECTOR;
     llRegionSay(BROADCAST_CHANNEL,"#die#");
     list params;
     if(i == 1) {
@@ -130,11 +142,16 @@ rezSculptNodes(integer i)
     llMessageLinked(LINK_THIS,BROADCAST_CHANNEL,llList2CSV(params),"#rez#");
 }
 
+announceSetupParams()
+{
+    llShout(BROADCAST_CHANNEL,"#setup#" + llList2CSV([COLUMNS,ACCESS_LEVEL,MAX_NODES]));
+}
 
 //Starts the Rendering Process by announcing and waiting
 //for replies.  Once all replies are in, a final request
 //is sent that informs the server to compile the image.
-render(){
+render()
+{
     n = 0;
     llListenRemove(gListenHandle_Errors);
     llListenRemove(gListenHandle_Success);
@@ -143,17 +160,7 @@ render(){
     llShout(BROADCAST_CHANNEL,"#render#"+URL);
 }
 
-minmax(vector vert) {
-    //Min
-    if( vert.x < bbox_lower.x ) bbox_lower.x = vert.x;
-    if( vert.y < bbox_lower.y ) bbox_lower.y = vert.y;
-    if( vert.z < bbox_lower.z ) bbox_lower.z = vert.z;
 
-    //Max
-    if( vert.x > bbox_higher.x ) bbox_higher.x = vert.x;
-    if( vert.y > bbox_higher.y ) bbox_higher.y = vert.y;
-    if( vert.z > bbox_higher.z ) bbox_higher.z = vert.z;
-}
 
 dialog(string message, list dialog, key id, integer channel)
 {
@@ -189,13 +196,23 @@ default
 {
     state_entry()
     {
-        BROADCAST_CHANNEL = (-(integer)(llFrand(1e+6) + 1e+6)) & CHANNEL_MASK; 
+        BROADCAST_CHANNEL = (-(integer)(llFrand(1e+6) + 1e+6)) & CHANNEL_MASK;
+        llListen(BROADCAST_CHANNEL,"","","");
     }
     on_rez(integer p){
         llResetScript();
     }
     listen(integer c, string st, key id, string m)
     {
+        if( c == BROADCAST_CHANNEL)
+        {
+            if(llSubStringIndex(m,"#enc-size#") == 0)
+            {
+                list enc = llCSV2List(llGetSubString(m,10,-1));
+                gEnclosePos = (vector)llList2String(enc,0);
+                gEncloseScale = (vector)llList2String(enc,1);
+            }
+        }
         if( c == DIALOG_CHANNEL ) {
             llListenRemove(gListenHandle_Agent);
             //--- SUB MENUS ---///
@@ -232,33 +249,47 @@ default
             }
             // - REZ BUTTON - //
             if (m == "REZ"){
-                if(gHasRezed) llShout(BROADCAST_CHANNEL,"#die#");
-                rezSculptNodes(0);
+                dialog("Choose a rez mode:\n",REZ_DIALOG,id,DIALOG_CHANNEL);
                 return;
             }
             // - REZ BUTTON - //
-            if (m == "REZ2"){
+            if (m == "REZ_T"){
                 if(gHasRezed) llShout(BROADCAST_CHANNEL,"#die#");
                 rezSculptNodes(1);
                 return;
             }
-            // - RENDER MENU - //
-            if (m == "ENCLOSE"){
-                n = 0;
-                ENCLOSED = FALSE;
-                llListenRemove(gListenHandle_Enclose);
-                gListenHandle_Enclose = llListen(-2000,"","","");
-                bbox_lower = <9999,9999,9999>;
-                bbox_higher = <-9999,-9999,-9999>;
-                llResetTime();
-                llShout(BROADCAST_CHANNEL,"#enclose#");
-                llSetTimerEvent(15.0);
+            // - REZ BUTTON - //
+            if (m == "REZ_C"){
+                if(gHasRezed) llShout(BROADCAST_CHANNEL,"#die#");
+                rezSculptNodes(0);
                 return;
             }
+            if (m == "CLEANUP")
+            {
+                list d = [
+                    "[DELETE] Yes, Delete everything","DELETE",
+                    "[CANCEL] No way! Get me the hell out of here!","CANCEL"
+                ];
+                dialog("Are you sure you want to clean up? This will delete everything!\n",d,id,DIALOG_CHANNEL);
+                return;
+            }
+            if ( m == "DELETE" )
+            {
+                llRegionSay(BROADCAST_CHANNEL,"#die#");
+            }
+            // - RENDER MENU - //
+            if (m == "ENCLOSER"){
+                list d = llGetObjectDetails(id,[OBJECT_POS,OBJECT_ROT]);
+                vector pos = llList2Vector(d,0) + llRot2Fwd(llList2Rot(d,1))*2;
+                llRegionSay(BROADCAST_CHANNEL,"#enc-die#");
+                gToolRez = TRUE;
+                llRezObject("Enclose Tool",llGetPos(),ZERO_VECTOR,ZERO_ROTATION,BROADCAST_CHANNEL);
+            }
             if (m == "RENDER"){
-                if(ENCLOSED) {
+                if(gEncloseScale != ZERO_VECTOR) {
                     gCurrentKey=id;
-                    render();
+                    gRenderOnDataserver = TRUE;
+                    gDataserverRequest = llGetNotecardLine("OpenLoft URL",0);
                 } else {
                     llOwnerSay("You must first ENCLOSE the sculpt before you can render it");
                 }
@@ -272,12 +303,14 @@ default
             if (m == "MIRROR") {
                 list d = llGetObjectDetails(id,[OBJECT_POS,OBJECT_ROT]);
                 vector pos = llList2Vector(d,0) + llRot2Fwd(llList2Rot(d,1))*2;
+                gToolRez = TRUE;
                 llRezObject("Mirror Tool",pos,ZERO_VECTOR,ZERO_ROTATION,BROADCAST_CHANNEL);
             }
             if (m == "NODES") {
                 list d = llGetObjectDetails(id,[OBJECT_POS,OBJECT_ROT]);
                 vector pos = llList2Vector(d,0) + llRot2Fwd(llList2Rot(d,1))*2;
-                llRezObject("Node Tool",llGetPos()+<0,0,.5>,ZERO_VECTOR,llEuler2Rot(<-PI_BY_TWO,0,0>),BROADCAST_CHANNEL);
+                gToolRez = TRUE;
+                llRezObject("Node Tool",pos,ZERO_VECTOR,llEuler2Rot(<-PI_BY_TWO,0,0>),BROADCAST_CHANNEL);
             }            
             // - SMOOTH MENU - //
             if (m == "LINEAR" || m== "GAUSSIAN" || m =="NONE"){
@@ -309,7 +342,7 @@ default
             integer ac = llListFindList(ACCESS_LEVELS,[m]);
             if (ac != -1 ) {
                 ACCESS_LEVEL = llList2Integer(ACCESS_LEVELS,ac+1);
-                llShout(BROADCAST_CHANNEL,"#setup#" + llList2CSV([COLUMNS,ACCESS_LEVEL,URL,MAX_NODES]));
+                announceSetupParams();
                 return;
             }
         }
@@ -324,43 +357,15 @@ default
                 COLUMNS = (integer)v.y;
             }
         }
-        //Size Reponses
-        if( c == -2000 )
-        {
-            llResetTime();
-            llSetTimerEvent(15.0);
-            ++n;
-            integer break = llSubStringIndex(m,"|");
-            if( break != -1 )
-            {
-                minmax((vector)llGetSubString(m,0,break-1));
-                minmax((vector)llGetSubString(m,break+1,-1));
-            } else {
-                    minmax((vector)m);
-            }
 
-            if( n >= MAX_NODES ) {
-                vector scale = bbox_higher - bbox_lower;
-                vector pos = bbox_lower + scale*.5;
-                if( llVecMag(scale) < 17.4 ) {
-                    llSetPos(pos);
-                    llSetScale(scale*1.01);
-                    ENCLOSED = TRUE;
-                } else {
-                        llOwnerSay("Enclose Failed - Size Too Big");
-                }
-                llSetTimerEvent(0.0);
-                llListenRemove(gListenHandle_Enclose);
-            }
-        }
         //Successful Upload Responses
         if( c == -2001 ) {
             ++n;
             if( n == MAX_NODES ) {
                 if(URL != "" && URL != "none") {
                     gHTTPRequest = llHTTPRequest(URL + "action=render",HTTP_PARAMS,
-                        "scale=" + llEscapeURL((string)llGetScale()) +
-                        "&org=" + llEscapeURL((string)llGetPos()) +
+                        "scale=" + llEscapeURL((string)gEncloseScale) +
+                        "&org=" + llEscapeURL((string)gEnclosePos) +
                         "&smooth=" + gBlurType +
                         "&w=" + (string)COLUMNS +
                         "&h=" + (string)MAX_NODES
@@ -373,11 +378,7 @@ default
             llOwnerSay("Error on row " + m);
         }
     }
-    timer() {
-        llSetTimerEvent(0.0);
-        llListenRemove(gListenHandle_Enclose);
-        llOwnerSay("Enclose Failed - Not All Nodes Responded");
-    }
+
     link_message(integer sn, integer n, string s, key id)
     {
         //Done Rezing
@@ -403,7 +404,21 @@ default
                 llOwnerSay("You must replace the url in the 'OpenLoft URL' notecard");
                 URL = "none";
             }
-            llShout(BROADCAST_CHANNEL,"#setup#" + llList2CSV([COLUMNS,ACCESS_LEVEL,MAX_NODES]));
+            if(gRenderOnDataserver) 
+            {
+                gRenderOnDataserver = FALSE;
+                render();
+            }
+            announceSetupParams();
+        }
+    }
+    
+    object_rez(key id)
+    {
+        if(gToolRez)
+        {
+            announceSetupParams();
+            gToolRez = FALSE;
         }
     }
 
