@@ -7,7 +7,7 @@
  * Fixed many bugs
  * Support for Oblong Sculpts (eg: 16x64 , 8x128 , 4x256 )
  * Removed Sculpt Preview (No longer works for oblong sculpts)
- * Removed PolyRez
+ * Removed !PolyRez
    * Disks are positioned by Bezier Curves
    * Can add/remove anchor/control points
    * Bezier can be turned on/off with the menu buttons
