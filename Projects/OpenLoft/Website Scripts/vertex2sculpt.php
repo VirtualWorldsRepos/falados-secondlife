@@ -21,8 +21,8 @@ require_once('func.gdbundle.php');
 
 if( defined(ENABLE_AUTH) && !$is_allowed) die('Not Allowed');
 
-define('MAX_ROW',31);
 define('FLOAT_PRECISION',3);
+define('UPSAMPLE',64);
 
 //Make the directories if they are missing
 if( !file_exists("cache") ) mkdir("cache");
@@ -71,9 +71,12 @@ class vertex {
 	}
 };
 
-function make_sculpty($verts,$sc,$o,$smooth = "none") {
+function make_sculpty($verts,$sc,$o,$width,$height,$upsample, $smooth) {
 	global $owner_key,$object_key;
-	$image = imagecreatetruecolor(64,64);
+
+	$image = imagecreatetruecolor($width,$height);
+
+	
 
 	$scale = new vertex;
 	$orig = new vertex;
@@ -92,7 +95,7 @@ function make_sculpty($verts,$sc,$o,$smooth = "none") {
 		$row = explode("|",$vert_row);
 		$point = FALSE;
 		if( count($row) == 1 ) $point = TRUE;
-		$y = 62 - $this_row*2;
+		$y = $height - 1 - $this_row;
 		foreach( $row as $v ) //Columns
 		{
 			$vert = new vertex;
@@ -114,18 +117,37 @@ function make_sculpty($verts,$sc,$o,$smooth = "none") {
 			$color = imagecolorallocate($image,$red,$green,$blue);
 
 			if($point) {
-				imageline($image,0,$y,63,$y,$color);
-				imageline($image,0,$y+1,63,$y+1,$color);
+				imageline($image,0,$y,$width-1,$y,$color);
 				break;
 			} else {
-				imagerectangle($image,$x,$y,$x+1,$y+1,$color);
+				imagesetpixel($image,$x,$y,$color);
 			}
-			$x+=2;
-			if($x > 62) break;
+			++$x;
+			if($x >= $width) break;
 		}
 		$this_row++;
-		if( $this_row > MAX_ROW) break;
+		if( $this_row >= $height) break;
 	}
+	
+	//Up-sample the image 
+	if($upsample) 
+	{
+		if($height > $width)
+		{
+			$aspect = $width/$height;
+			$new_h = UPSAMPLE;
+			$new_w = UPSAMPLE*$aspect;
+		} else {
+			$aspect = $height/$width;
+			$new_w = UPSAMPLE;
+			$new_h = UPSAMPLE*$aspect;
+		}
+		$image_resampled = imagecreatetruecolor($new_w,$new_h);
+		imagecopyresized($image_resampled , $image , 0 , 0 , 0 , 0 , $new_w , $new_h , $width, $height );
+		imagedestroy($image);
+		$image = $image_resampled;
+	}
+
 	if( $smooth == "gaussian" ) {
 		$gaussian = array(array(1.0, 2.0, 1.0), array(2.0, 4.0, 2.0), array(1.0, 2.0, 1.0));
 		imageconvolution($image, $gaussian, 16, 0);
@@ -200,11 +222,13 @@ if($action == "upload")
 }
 
 if( $action == "render") {
+	$xverts = stripslashes($_REQUEST['w']);
+	$yverts = stripslashes($_REQUEST['h']);
 	$smooth = stripslashes($_REQUEST['smooth']);
 	$scale = stripslashes($_REQUEST['scale']);
 	$orig = stripslashes($_REQUEST['org']);
 	$input = array();
-	for($r = 0; $r <= MAX_ROW; ++$r)
+	for($r = 0; $r < $yverts; ++$r)
 	{
 		$row_filename = "cache/$image_id-$r.verts";
 		if( $input[] = file_get_contents($row_filename) ) {
@@ -221,6 +245,6 @@ if( $action == "render") {
 	$orig = preg_replace("/[> <]/","",$orig);
 	$orig = explode(",",$orig);
 
-	make_sculpty($input,$scale,$orig,$smooth);
+	make_sculpty($input,$scale,$orig,$xverts,$yverts,FALSE,$smooth);
 }
 ?>
