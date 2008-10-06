@@ -22,7 +22,6 @@ require_once('func.gdbundle.php');
 if( defined(ENABLE_AUTH) && !$is_allowed) die('Not Allowed');
 
 define('FLOAT_PRECISION',3);
-define('UPSAMPLE',64);
 
 //Make the directories if they are missing
 if( !file_exists("cache") ) mkdir("cache");
@@ -132,16 +131,8 @@ function make_sculpty($verts,$sc,$o,$width,$height,$upsample, $smooth) {
 	//Up-sample the image 
 	if($upsample) 
 	{
-		if($height > $width)
-		{
-			$aspect = $width/$height;
-			$new_h = UPSAMPLE;
-			$new_w = UPSAMPLE*$aspect;
-		} else {
-			$aspect = $height/$width;
-			$new_w = UPSAMPLE;
-			$new_h = UPSAMPLE*$aspect;
-		}
+		$new_h = $width*2;
+		$new_w = $height*2;
 		$image_resampled = imagecreatetruecolor($new_w,$new_h);
 		imagecopyresized($image_resampled , $image , 0 , 0 , 0 , 0 , $new_w , $new_h , $width, $height );
 		imagedestroy($image);
@@ -245,6 +236,6 @@ if( $action == "render") {
 	$orig = preg_replace("/[> <]/","",$orig);
 	$orig = explode(",",$orig);
 
-	make_sculpty($input,$scale,$orig,$xverts,$yverts,FALSE,$smooth);
+	make_sculpty($input,$scale,$orig,$xverts,$yverts,TRUE,$smooth);
 }
 ?>

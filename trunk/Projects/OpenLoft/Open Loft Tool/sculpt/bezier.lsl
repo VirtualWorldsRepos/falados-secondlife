@@ -202,7 +202,7 @@ state enabled
         }
         if( command == "#bez_caps#")
         {
-        	list caps = llList2CSV(str);
+        	list caps = llCSV2List(str);
         	string KEY;
         	string VAL;
         	while( caps != [])

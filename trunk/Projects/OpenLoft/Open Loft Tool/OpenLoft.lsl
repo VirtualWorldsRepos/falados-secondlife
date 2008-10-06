@@ -53,9 +53,9 @@ list TOOLS_DIALOG =
 
 list ACCESS_DIALOG =
 [
-	"[EVERYONE] Everyone can use this","EVERYONE",
-	"[GROUP] Group-members can you this","GROUP",
-	"[OWNER] Only Owner can use this","OWNER"
+    "[EVERYONE] Everyone can use this","EVERYONE",
+    "[GROUP] Group-members can you this","GROUP",
+    "[OWNER] Only Owner can use this","OWNER"
 ];
 
 list SPLINE_DIALOG =
@@ -65,16 +65,16 @@ list SPLINE_DIALOG =
     "[ADD CTRL] Adds a control point","ADD CTRL",
     "[DEL CTRL] Deletes the last control point","DEL CTRL",
     "[BEZ SCALE] Scale slices along the bezier","BEZ SCALE",
-	"[BEZ ROT] Rotate slices along the bezier","BEZ ROT",
-    "[STOP SCALE] Stop scaling slices","STOP SCALE]",
-	"[STOP ROT] Stop rotating slices","STOP ROT",
+    "[BEZ ROT] Rotate slices along the bezier","BEZ ROT",
+    "[STOP SCALE] Stop scaling slices","STOP SCALE",
+    "[STOP ROT] Stop rotating slices","STOP ROT"
 ];
 
 list SMOOTH_DIALOG =
 [
-	"[NONE] No smoothing, use raw vertex data","NONE",
-	"[LINEAR] Blurs the image slightly to smooth out bumps","LINEAR",
-	"[GAUSSIAN] Blurs the image, but preserves some finer details","GAUSSIAN"
+    "[NONE] No smoothing, use raw vertex data","NONE",
+    "[LINEAR] Blurs the image slightly to smooth out bumps","LINEAR",
+    "[GAUSSIAN] Blurs the image, but preserves some finer details","GAUSSIAN"
 ];
 
 list RESOLUTIONS =
@@ -344,23 +344,23 @@ default
             }
             if( m == "BEZ SCALE" )
             {
-            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",1]));
-            	return;
+                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",1]));
+                return;
             }
             if( m == "STOP SCALE" )
             {
-            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",0]));
-            	return;
+                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",0]));
+                return;
             }
             if( m == "BEZ ROT" )
             {
-            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",1]));
-            	return;
+                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",1]));
+                return;
             }
             if( m == "STOP ROT" )
             {
-            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",0]));
-            	return;
+                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",0]));
+                return;
             }
 
             // - ACCESS LEVELS -
