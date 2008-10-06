@@ -131,8 +131,8 @@ function make_sculpty($verts,$sc,$o,$width,$height,$upsample, $smooth) {
 	//Up-sample the image 
 	if($upsample) 
 	{
-		$new_h = $width*2;
-		$new_w = $height*2;
+		$new_h = $height*2;
+		$new_w = $width*2;
 		$image_resampled = imagecreatetruecolor($new_w,$new_h);
 		imagecopyresized($image_resampled , $image , 0 , 0 , 0 , 0 , $new_w , $new_h , $width, $height );
 		imagedestroy($image);
