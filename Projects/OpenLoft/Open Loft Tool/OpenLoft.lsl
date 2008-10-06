@@ -45,32 +45,36 @@ list RENDER_DIALOG =
 
 list TOOLS_DIALOG =
 [
-"[SHOW] Shows all disks and nodes","SHOW",
-"[HIDE] Hides all disks and nodes","HIDE",
-"[NODES] Create Copy Tool","NODES",
+"[SHOW] Shows all slices and verts","SHOW",
+"[HIDE] Hides all slices and verts","HIDE",
+"[COPY] Create Copy Tool","COPY",
 "[MIRROR] Create Node Mirror Tool","MIRROR"
 ];
 
 list ACCESS_DIALOG =
 [
-"[EVERYONE] Everyone can use this","EVERYONE",
-"[GROUP] Group-members can you this","GROUP",
-"[OWNER] Only Owner can use this","OWNER"
+	"[EVERYONE] Everyone can use this","EVERYONE",
+	"[GROUP] Group-members can you this","GROUP",
+	"[OWNER] Only Owner can use this","OWNER"
 ];
 
 list SPLINE_DIALOG =
 [
+    "[BEZ STOP] Stops slices from following the spline","BEZ STOP",
+    "[BEZ START] Lets slices follow the bezier curve","BEZ START",
     "[ADD CTRL] Adds a control point","ADD CTRL",
     "[DEL CTRL] Deletes the last control point","DEL CTRL",
-    "[BEZ STOP] Stops disks from following the spline","BEZ STOP",
-    "[BEZ START] Lets disks follow the bezier curve","BEZ START"
+    "[BEZ SCALE] Scale slices along the bezier","BEZ SCALE",
+	"[BEZ ROT] Rotate slices along the bezier","BEZ ROT",
+    "[STOP SCALE] Stop scaling slices","STOP SCALE]",
+	"[STOP ROT] Stop rotating slices","STOP ROT",
 ];
 
 list SMOOTH_DIALOG =
 [
-"[NONE] No smoothing, use raw vertex data","NONE",
-"[LINEAR] Blurs the image slightly to smooth out bumps","LINEAR",
-"[GAUSSIAN] Blurs the image, but preserves some finer details","GAUSSIAN"
+	"[NONE] No smoothing, use raw vertex data","NONE",
+	"[LINEAR] Blurs the image slightly to smooth out bumps","LINEAR",
+	"[GAUSSIAN] Blurs the image, but preserves some finer details","GAUSSIAN"
 ];
 
 list RESOLUTIONS =
@@ -306,7 +310,7 @@ default
                 gToolRez = TRUE;
                 llRezObject("Mirror Tool",pos,ZERO_VECTOR,ZERO_ROTATION,BROADCAST_CHANNEL);
             }
-            if (m == "NODES") {
+            if (m == "COPY") {
                 list d = llGetObjectDetails(id,[OBJECT_POS,OBJECT_ROT]);
                 vector pos = llList2Vector(d,0) + llRot2Fwd(llList2Rot(d,1))*2;
                 gToolRez = TRUE;
@@ -337,7 +341,28 @@ default
             {
                 llShout(BROADCAST_CHANNEL,"#bezier-start#");    
                 return;
-            } 
+            }
+            if( m == "BEZ SCALE" )
+            {
+            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",1]));
+            	return;
+            }
+            if( m == "STOP SCALE" )
+            {
+            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",0]));
+            	return;
+            }
+            if( m == "BEZ ROT" )
+            {
+            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",1]));
+            	return;
+            }
+            if( m == "STOP ROT" )
+            {
+            	llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",0]));
+            	return;
+            }
+
             // - ACCESS LEVELS -
             integer ac = llListFindList(ACCESS_LEVELS,[m]);
             if (ac != -1 ) {

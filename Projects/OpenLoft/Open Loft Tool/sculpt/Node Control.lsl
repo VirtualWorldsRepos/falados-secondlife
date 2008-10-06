@@ -56,8 +56,8 @@ vector gPosition;
 rotation gRotation;
 list gRezedNodes;
 list gNodeInfo=[];
-integer gSculptType;
-integer gSpawnShape=0;
+integer gSculptType; 
+integer gSpawnShape=1;//For Vickie
 integer gListenHandle;
 integer gListenHandle_Lerp;
 integer gListenHandle_Copy;
@@ -123,7 +123,7 @@ vector get_node_offset(integer i, integer formula)
     {
         t *= TWO_PI;
         return <llCos(t),llSin(t),0>;
-    }else
+    }
     if(gSpawnShape == 1) //BOX
     {
         return <
@@ -140,9 +140,9 @@ integer rez_node(integer i)
     vector offset;
     rotation rot = ZERO_ROTATION;
     integer f = llGetListLength(gNodeInfo) != COLUMNS;
+    offset = get_node_offset(i,f);
     if(gSpawnShape==0)
     {
-        offset = get_node_offset(i,f);
         rot = llEuler2Rot( <0,0,1>* (float)i/COLUMNS*TWO_PI);
     }
     llRezObject("node",unpackNode(offset),ZERO_VECTOR,rot*gRotation, NODE_CHANNEL |  (i & CONTROL_POINT_MASK) );        

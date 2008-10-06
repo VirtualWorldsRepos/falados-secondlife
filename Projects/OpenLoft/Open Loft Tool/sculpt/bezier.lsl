@@ -1,3 +1,20 @@
+//    This file is part of OpenLoft.
+//
+//    OpenLoft is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    OpenLoft is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
+//
+//    Authors: Falados Kapuskas, JoeTheCatboy Freelunch
+
 integer MAX_FACTORIAL = 20;
 integer FACTORIAL_N = 0;
 integer LAST_N=-1;
@@ -19,6 +36,8 @@ integer MY_NUM;
 integer MAX_CONTROL_POINTS;
 integer MAX_INTER_POINTS;
 integer ANCHOR_POINTS;
+integer INTERP_ROT;
+integer INTERP_SCALE;
 integer gListenHandle;
 
 get_control_points()
@@ -134,13 +153,14 @@ bezier()
         b = nCr(n,i) * llPow(tlocal,i) * llPow(1.0-tlocal,n-i);
         p = (llList2Vector(control_pos,start+i));
         pos += b * p;
-        scale += b * (llList2Vector(control_scale,start+i));
+        if(INTERP_SCALE) scale += b * (llList2Vector(control_scale,start+i));
     }
     vector s = llGetScale();
     scale.z = s.z;
     llSetPos(pos);
-    llSetScale(scale);
-    llSetRot(slerp(llList2Rot(control_rot,start),llList2Rot(control_rot,start+i-1),tlocal));
+    if(INTERP_SCALE) llSetScale(scale);
+    if(INTERP_ROT) llSetRot(slerp(llList2Rot(control_rot,start),llList2Rot(control_rot,start+i-1),tlocal));
+    else { llSetRot(llList2Rot(control_rot,start+i-1)); }
 
 }
 
@@ -179,6 +199,20 @@ state enabled
         if( command == "#bez_stop#")
         {
             state default;
+        }
+        if( command == "#bez_caps#")
+        {
+        	list caps = llList2CSV(str);
+        	string KEY;
+        	string VAL;
+        	while( caps != [])
+        	{
+        		KEY = llList2String(caps,0);
+        		VAL = llList2String(caps,1);
+        		if( KEY == "scale") INTERP_SCALE =  (integer)VAL;
+        		if( KEY == "rot") INTERP_ROT = (integer)VAL;
+    	    	caps = llDeleteSubList(caps,0,1);
+    	    }
         }
     }
     timer()

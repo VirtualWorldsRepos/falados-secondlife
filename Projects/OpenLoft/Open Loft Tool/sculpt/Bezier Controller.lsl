@@ -77,6 +77,10 @@ handleRootCommand(string message)
             llMessageLinked(LINK_THIS,0,control_points,"#bez_start#");                    
         }
     }
+    if(llSubStringIndex(message,"#bez-caps#")==0)
+    {
+		llMessageLinked(LINK_THIS,0,llGetSubString(message,10,-1),"#bez_caps#");
+    }
     if(message == "#bezier-start#")
     {
         llSetScriptState("bezier",TRUE);
