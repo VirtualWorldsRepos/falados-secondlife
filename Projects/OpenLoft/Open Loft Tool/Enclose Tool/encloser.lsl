@@ -78,6 +78,7 @@ default
 {
     on_rez(integer i)
     {
+        if(i == 0) return;
         BROADCAST_CHANNEL = (i & CHANNEL_MASK);
         llListen(BROADCAST_CHANNEL, "","","");
         llSetText("Touch to Enclose",<1,1,1>,1.0);
@@ -105,9 +106,14 @@ default
             } else {
                 minmax((vector)message);
             }
-
+            float t = (float)gScaleResponses/ROWS;
+            llSetText("Enclose Progress : " + (string)llCeil(t*100) + "%",<1,1,0>,1.0);
+            llSetColor(<1,0,0>*(1-t) + <0,1,0>*(t),ALL_SIDES);
             if( gScaleResponses >= ROWS ) {
 
+                llSetColor(<1,1,1>,ALL_SIDES);
+                llSetText("",ZERO_VECTOR,0.0);
+            
                 vector pos = (gMin + gMax)*0.5;
                 vector scale = <99,99,99>;
                 if( llFabs(gMax.x-pos.x) > llFabs(gMin.x-pos.x) ) scale.x = 2*llFabs(gMax.x-pos.x);
@@ -163,6 +169,7 @@ default
         {
             gAutoEnclose = FALSE;
             llSetText("Touch to Enclose",<1,1,1>,1.0);
+            llSetColor(<1,1,1>,ALL_SIDES);
             llListenRemove(gListenHandle_Enclose);
             llInstantMessage(gOperator,"Enclose Failed - Not all nodes responded in time");
         }

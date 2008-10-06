@@ -344,22 +344,22 @@ default
             }
             if( m == "BEZ SCALE" )
             {
-                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",1]));
+                llShout(BROADCAST_CHANNEL,"#bez-caps#" + llList2CSV(["scale",1]));
                 return;
             }
             if( m == "STOP SCALE" )
             {
-                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["scale",0]));
+                llShout(BROADCAST_CHANNEL,"#bez-caps#" + llList2CSV(["scale",0]));
                 return;
             }
             if( m == "BEZ ROT" )
             {
-                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",1]));
+                llShout(BROADCAST_CHANNEL,"#bez-caps#" + llList2CSV(["rot",1]));
                 return;
             }
             if( m == "STOP ROT" )
             {
-                llShout(BROADCAST_CHANNEL,"#bez_caps#" + llList2CSV(["rot",0]));
+                llShout(BROADCAST_CHANNEL,"#bez-caps#" + llList2CSV(["rot",0]));
                 return;
             }
 
@@ -386,6 +386,9 @@ default
         //Successful Upload Responses
         if( c == -2001 ) {
             ++n;
+            float t = (float)n/MAX_NODES;
+            llSetText("Render Progress : " + (string)llCeil(t*100) + "%",<1,1,0>,1.0);
+            llSetColor(<1,0,0>*(1-t) + <0,1,0>*(t),ALL_SIDES);
             if( n == MAX_NODES ) {
                 if(URL != "" && URL != "none") {
                     gHTTPRequest = llHTTPRequest(URL + "action=render",HTTP_PARAMS,
@@ -396,6 +399,8 @@ default
                         "&h=" + (string)MAX_NODES
                     );
                 }
+                llSetColor(<1,1,1>,ALL_SIDES);
+                llSetText("",ZERO_VECTOR,0.0);
             }
         }
         //Errored Responses
