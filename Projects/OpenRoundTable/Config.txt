@@ -1,0 +1,12 @@
+==== Chair Object Name ====
+Chair with Anchor
+==== Minimum Distance from Table (In Meters) ====
+1.2
+==== Minimum Distance from surrounding chairs (In Meters) ====
+0.5
+==== Minimum number of chairs to show (1 or more) ====
+4
+==== Chair's Offset (Z Offset) ====
+-0.5
+==== Maximum number of chairs  ====
+20
