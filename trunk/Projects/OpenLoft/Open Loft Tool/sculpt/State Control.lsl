@@ -46,7 +46,7 @@ integer gListenHandle_Dialog;
 vector gScale;
 vector gLastColor;
 integer gSculptType;
-integer gSpawnShape;
+integer gSpawnShape=1; //For Vickie
 integer gListenHandle;
 
 //-- DIALOGS ---//
