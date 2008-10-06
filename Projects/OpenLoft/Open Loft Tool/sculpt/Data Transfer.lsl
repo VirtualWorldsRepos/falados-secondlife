@@ -19,10 +19,6 @@
 integer COMMAND_NODES   = -7;
 integer COMMAND_INTERP  = -8;
 integer COMMAND_LERP    = -4;
-integer COMMAND_COPY    = -9;//LinkCommands
-integer COMMAND_NODES   = -7;
-integer COMMAND_INTERP  = -8;
-integer COMMAND_LERP    = -4;
 integer COMMAND_COPY    = -9;
 
 integer BROADCAST_CHANNEL;
