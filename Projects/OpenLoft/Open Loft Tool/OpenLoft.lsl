@@ -96,7 +96,7 @@ list ACCESS_LEVELS = [
 "EVERYONE",0
 ];
 
-string  NODE_NAME = "sculpt";
+string  NODE_NAME = "cut";
 string  CONTROL_NAME = "control";
 integer BROADCAST_CHANNEL;
 integer COMMON_CHANNEL = -2101; //War was begining
@@ -210,7 +210,7 @@ default
     }
     listen(integer c, string st, key id, string m)
     {
-    	if(!has_access(id)) return;
+    	if(!has_access(llGetOwnerKey(id))) return;
     	
         if( c == BROADCAST_CHANNEL)
         {
@@ -418,7 +418,10 @@ default
         }
         if( c == COMMON_CHANNEL)
         {
-        	if(m == "#send-bcast#") llRegionSay(COMMON_CHANNEL,"#bcast#" + (string)BROADCAST_CHANNEL);
+        	if(m == "#send-bcast#")
+        	{
+	        	llRegionSay(COMMON_CHANNEL,"#bcast#" + (string)BROADCAST_CHANNEL);
+	        }
         }
     }
 

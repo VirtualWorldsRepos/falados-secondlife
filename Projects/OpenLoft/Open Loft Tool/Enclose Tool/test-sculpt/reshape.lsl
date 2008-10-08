@@ -15,7 +15,7 @@
 //
 //    Authors: Falados Kapuskas, JoeTheCatboy Freelunch
 
-key DEFAULT_SCULPT = "be293869-d0d9-0a69-5989-ad27f1946fd4";
+key DEFAULT_SCULPT = "39d23b96-719c-b893-d3c8-30b9074cd2f8";
 
 default
 {

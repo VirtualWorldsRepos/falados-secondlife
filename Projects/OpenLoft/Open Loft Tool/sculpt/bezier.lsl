@@ -155,13 +155,15 @@ bezier()
         pos += b * p;
         if(INTERP_SCALE) scale += b * (llList2Vector(control_scale,start+i));
     }
+    
     vector s = llGetScale();
     scale.z = s.z;
     llSetPos(pos);
-    if(INTERP_SCALE) llSetScale(scale);
-    if(INTERP_ROT) llSetRot(slerp(llList2Rot(control_rot,start),llList2Rot(control_rot,start+i-1),tlocal));
-    else { llSetRot(llList2Rot(control_rot,start+i-1)); }
-
+    list prim_params = [PRIM_POSITION,pos];
+    if(INTERP_SCALE) prim_params += [PRIM_SIZE,scale];
+    if(INTERP_ROT) prim_params += [PRIM_ROTATION,slerp(llList2Rot(control_rot,start),llList2Rot(control_rot,start+i-1),tlocal)];
+    else prim_params += [PRIM_ROTATION,llList2Rot(control_rot,start+i-1)]; 
+    llSetPrimitiveParams(prim_params);
 }
 
 default {

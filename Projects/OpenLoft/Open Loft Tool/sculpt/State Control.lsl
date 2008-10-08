@@ -234,7 +234,7 @@ default
         
         gSculptType = SCULPT_DISK;
         gScale = <0.5,0.5,0.05>;
-        llSetObjectName("sculpt:" + (string)MY_ROW);
+        llSetObjectName("cut:" + (string)MY_ROW);
         setShape(<1,1,1>);
         llListen(BROADCAST_CHANNEL,"","","");
     }
@@ -260,7 +260,7 @@ default
 state link_disks {
     state_entry() {
         //ROW 32 *should* trigger no_sensor
-        llSensor("sculpt:" + (string)(MY_ROW+1),"",SCRIPTED,10.0,TWO_PI);
+        llSensor("cut:" + (string)(MY_ROW+1),"",SCRIPTED,10.0,TWO_PI);
     }
     sensor(integer total_number)
     {

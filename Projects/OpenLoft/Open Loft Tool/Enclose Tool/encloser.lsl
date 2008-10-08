@@ -32,8 +32,10 @@ float MAX_RESPONSE_TIME = 15.0;
 key gOperator;
 integer gAutoEnclose;
 integer gSculptType;
+integer gWorking;
 vector gScale;
 vector gPos;
+
 
 list MAIN_DIALOG = [
     "[AUTO] Auto-encloses your sculpture.","AUTO",
@@ -71,12 +73,16 @@ rez(integer type)
 }
 modified()
 {
-    llSetText("Modified (Not Saved)",<.5,0,1>,1.0);
-    llSetColor(<.5,0,1>,ALL_SIDES);
+	if(!gWorking)
+	{
+    	llSetText("Modified (Not Saved)",<.5,0,1>,1.0);
+    	llSetColor(<.5,0,1>,ALL_SIDES);
+    }
 }
 
 save()
 {
+	gWorking = FALSE;
     gScale = llGetScale();
     gPos = llGetPos();
     llSetText("Ready",<1,1,1>,1.0);
@@ -86,6 +92,7 @@ save()
 
 autoenclose()
 {
+	gWorking = TRUE;
     llSetText("",<1,1,1>,1.0);
     ENCLOSE_CHANNEL = (integer)(llFrand(-1e6) - 1e6);
     gScaleResponses = 0;
@@ -147,6 +154,8 @@ default
     on_rez(integer i)
     {
         if(i == 0) return;
+        gPos = llGetPos();
+        gScale = llGetScale();
         DIALOG_CHANNEL = (integer)(llFrand(1e6)+1e6);
         SIZE_CHANNEL = (integer)(llFrand(-1e6)-1e6);
         BROADCAST_CHANNEL = (i & CHANNEL_MASK);
@@ -196,13 +205,14 @@ default
                 else scale.z = 2*llFabs(gMin.z-pos.z);
                 
                 if( llVecMag(scale) < 17.4 ) {
-                    llSetScale(scale);
+                    llSetScale(scale*1.01);
                     llSetPos(pos);
                     save();
                     llRegionSay(BROADCAST_CHANNEL,"#enc-size#" + llList2CSV([gPos,gScale]));
                 } else {
                     llInstantMessage(gOperator,"Enclose Failed - Size Too Big");
                 }
+                gWorking = FALSE;
                 gAutoEnclose = FALSE;
                 llListenRemove(gListenHandle_Enclose);
             }
