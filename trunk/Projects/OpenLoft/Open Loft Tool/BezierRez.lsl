@@ -32,9 +32,9 @@ integer gDiskNum;
 integer gAnnounceFinish;
 go_pos(vector p)
 {
-    while(llGetPos() != p) {
-        llSetPos(p);
-    }    
+	while(llGetPos() != p) {
+		llSetPos(p);
+    }	
 }
 
 integer rez_disk(integer i)
