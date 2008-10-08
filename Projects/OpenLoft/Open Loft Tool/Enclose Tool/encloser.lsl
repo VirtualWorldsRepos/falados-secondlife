@@ -16,19 +16,87 @@
 //    Authors: Falados Kapuskas, JoeTheCatboy Freelunch
 
 integer CHANNEL_MASK = 0xFFFFFF00;
+integer DIALOG_CHANNEL;
+integer SIZE_CHANNEL;
 integer BROADCAST_CHANNEL=-1;
 integer ENCLOSE_CHANNEL=-1;
 integer ACCESS_LEVEL = 2;
 integer ROWS;
 integer gListenHandle_Enclose;
+integer gListenHandle_Agent;
 integer gScaleResponses;
+integer gShifted = FALSE;
 vector gMax;
 vector gMin;
 float MAX_RESPONSE_TIME = 15.0;
 key gOperator;
 integer gAutoEnclose;
+integer gSculptType;
 vector gScale;
 vector gPos;
+
+list MAIN_DIALOG = [
+    "[AUTO] Auto-encloses your sculpture.","AUTO",
+    "[REZ] Rezes a sculpted prim in the same dimensions","REZ",
+    "[SAVE] Save the enclosed sized and position","SAVE",
+    "[DESTROY] Destroy the enclose tool","DESTROY"
+];
+
+list SHIFT_OFF = [
+    "[SHIFT] Shift the encloser 10m to the left.","SHIFT"
+];
+
+list SHIFT_ON = [
+    "[UNSHIFT] Shift back to original position","UNSHIFT"
+];
+
+list SCULPT_DIALOG = [
+    "[SPHERE] Converge top & bottom, stitch left side to right","SPHERE",
+    "[TORUS] Stitch top to bottom, stitch left side to right","TORUS",
+    "[PLANE] No stitching or converging","PLANE",
+    "[CYLINDER] Stitch left side to right","CYLINDER"
+];
+
+dialog(string message, list dialog, key id, integer channel)
+{
+    llListenRemove(gListenHandle_Agent);
+    gListenHandle_Agent = llListen(channel,"",id,"");
+    string m = message + llDumpList2String( llList2ListStrided(dialog,0,-1,2) , "\n");
+    llDialog(id,m,llList2ListStrided( llDeleteSubList(dialog,0,0), 0,-1,2),channel);
+}
+rez(integer type)
+{
+    gSculptType = type;
+    llRezObject("test-sculpt",llGetPos() + llRot2Fwd(llGetRot())*5,ZERO_VECTOR,ZERO_ROTATION,SIZE_CHANNEL);
+}
+modified()
+{
+    llSetText("Modified (Not Saved)",<.5,0,1>,1.0);
+    llSetColor(<.5,0,1>,ALL_SIDES);
+}
+
+save()
+{
+    gScale = llGetScale();
+    gPos = llGetPos();
+    llSetText("Ready",<1,1,1>,1.0);
+    llSetColor(<1,1,1>,ALL_SIDES);
+    llRegionSay(BROADCAST_CHANNEL,"#enc-size#" + llList2CSV([gPos,gScale]));
+}
+
+autoenclose()
+{
+    llSetText("",<1,1,1>,1.0);
+    ENCLOSE_CHANNEL = (integer)(llFrand(-1e6) - 1e6);
+    gScaleResponses = 0;
+    llListenRemove(gListenHandle_Enclose);
+    gListenHandle_Enclose = llListen(ENCLOSE_CHANNEL,"","","");
+    gMin = <9999,9999,9999>;
+    gMax = <-9999,-9999,-9999>;
+    llShout(BROADCAST_CHANNEL,"#enclose#" + (string)ENCLOSE_CHANNEL);
+    gAutoEnclose = TRUE;
+    llResetTime();
+}
 
 processRootCommands(string message)
 {
@@ -79,9 +147,11 @@ default
     on_rez(integer i)
     {
         if(i == 0) return;
+        DIALOG_CHANNEL = (integer)(llFrand(1e6)+1e6);
+        SIZE_CHANNEL = (integer)(llFrand(-1e6)-1e6);
         BROADCAST_CHANNEL = (i & CHANNEL_MASK);
         llListen(BROADCAST_CHANNEL, "","","");
-        llSetText("Touch to Enclose",<1,1,1>,1.0);
+        llSetText("Ready",<1,1,1>,1.0);
         llSetTimerEvent(0.1);
     }
     listen(integer channel, string name, key id, string message)
@@ -126,52 +196,98 @@ default
                 else scale.z = 2*llFabs(gMin.z-pos.z);
                 
                 if( llVecMag(scale) < 17.4 ) {
-                    gScale = scale*1.01;
-                    gPos = pos;
-                    llSetPos(gPos);
-                    llSetScale(gScale);
-                    llSetRot(ZERO_ROTATION);
+                    llSetScale(scale);
+                    llSetPos(pos);
+                    save();
                     llRegionSay(BROADCAST_CHANNEL,"#enc-size#" + llList2CSV([gPos,gScale]));
                 } else {
                     llInstantMessage(gOperator,"Enclose Failed - Size Too Big");
                 }
                 gAutoEnclose = FALSE;
                 llListenRemove(gListenHandle_Enclose);
-                llSetText("Touch to Enclose",<1,1,1>,1.0);
             }
         }
-        
+
+        if(channel == DIALOG_CHANNEL)
+        {
+            if(message == "AUTO")
+            {
+                autoenclose();
+                return;
+            }
+            if(message == "SAVE")
+            {
+                save();
+                llInstantMessage(id,"Saved Enclosure");
+            }
+            if( message == "DESTROY" )
+            {
+                llInstantMessage(id,"Destroyed Enclosure, Not Saved.");
+                llDie();
+            }
+            
+            if( message == "REZ" )
+            {
+                dialog("Choose a Stiching Type:\n", SCULPT_DIALOG,id,DIALOG_CHANNEL);
+                return;
+            }
+            if( message == "SPHERE" ) 
+            {
+                rez(PRIM_SCULPT_TYPE_SPHERE);
+                return;
+            }
+            if( message == "TORUS")
+            {
+                rez(PRIM_SCULPT_TYPE_TORUS);
+                return;
+            }
+            if( message == "PLANE" ) 
+            {
+                rez(PRIM_SCULPT_TYPE_PLANE);
+                return;
+            }
+            if(message == "CYLINDER")
+            {
+                rez(PRIM_SCULPT_TYPE_CYLINDER);
+                return;
+            }
+            if( message == "SHIFT" )
+            {
+            	gShifted = TRUE;
+            	llSetPos(gPos + llRot2Left(llGetRot())*10);
+            }
+            if( message == "UNSHIFT")
+            {
+            	gShifted = FALSE;
+            	llSetPos(gPos);
+            }
+        }
     }
     touch_start(integer i)
     {
         key k = llDetectedKey(0);
         if(!has_access(k)) return;
         gOperator = k;
-        llSetText("",<1,1,1>,1.0);
-        ENCLOSE_CHANNEL = (integer)(llFrand(-1e6) - 1e6);
-        gScaleResponses = 0;
-        llListenRemove(gListenHandle_Enclose);
-        gListenHandle_Enclose = llListen(ENCLOSE_CHANNEL,"","","");
-        gMin = <9999,9999,9999>;
-        gMax = <-9999,-9999,-9999>;
-        llShout(BROADCAST_CHANNEL,"#enclose#" + (string)ENCLOSE_CHANNEL);
-        gAutoEnclose = TRUE;
-        llResetTime();
+        list g = SHIFT_OFF;
+        if(gShifted) g = SHIFT_ON;
+        dialog("Choose an action:\n", MAIN_DIALOG + g, k,DIALOG_CHANNEL);
     }
     timer() {
-        if(llGetScale() != gScale || llGetPos() != gPos)
-        {
-            gScale = llGetScale();
-            gPos = llGetPos();
-            llRegionSay(BROADCAST_CHANNEL,"#enc-size#" + llList2CSV([gPos,gScale]));            
-        }
+        if(llGetPos() != gPos && !gShifted) modified();
+        if(llGetScale() != gScale) modified();
+        if(llGetRot() != ZERO_ROTATION) llSetRot(ZERO_ROTATION);
         if( gAutoEnclose && llGetTime() > MAX_RESPONSE_TIME)
         {
             gAutoEnclose = FALSE;
-            llSetText("Touch to Enclose",<1,1,1>,1.0);
+            llSetText("Ready",<1,1,1>,1.0);
             llSetColor(<1,1,1>,ALL_SIDES);
             llListenRemove(gListenHandle_Enclose);
             llInstantMessage(gOperator,"Enclose Failed - Not all nodes responded in time");
         }
+    }
+    object_rez(key id)
+    {
+        llSleep(0.25);
+        llRegionSay(SIZE_CHANNEL,llList2CSV([gScale,gSculptType]));
     }
 }

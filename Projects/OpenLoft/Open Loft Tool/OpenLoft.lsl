@@ -99,6 +99,7 @@ list ACCESS_LEVELS = [
 string  NODE_NAME = "sculpt";
 string  CONTROL_NAME = "control";
 integer BROADCAST_CHANNEL;
+integer COMMON_CHANNEL = -2101; //War was begining
 integer CHANNEL_MASK = 0xFFFFFF00;
 integer CONTROL_POINT_MASK = 0xFF;
 integer DIALOG_CHANNEL  = 4209249;
@@ -202,12 +203,15 @@ default
     {
         BROADCAST_CHANNEL = (-(integer)(llFrand(1e+6) + 1e+6)) & CHANNEL_MASK;
         llListen(BROADCAST_CHANNEL,"","","");
+        llListen(COMMON_CHANNEL,"","","");
     }
     on_rez(integer p){
         llResetScript();
     }
     listen(integer c, string st, key id, string m)
     {
+    	if(!has_access(id)) return;
+    	
         if( c == BROADCAST_CHANNEL)
         {
             if(llSubStringIndex(m,"#enc-size#") == 0)
@@ -252,19 +256,23 @@ default
                 return;
             }
             // - REZ BUTTON - //
-            if (m == "REZ"){
-                dialog("Choose a rez mode:\n",REZ_DIALOG,id,DIALOG_CHANNEL);
+            if (m == "REZ")
+            {
+                if(!gHasRezed) dialog("Choose a rez mode:\n",REZ_DIALOG,id,DIALOG_CHANNEL);
+                else llDialog(id,"Cannot rez new cuts when cuts are already out.\nPlease use the CLEANUP button first",[],-1);
                 return;
             }
             // - REZ BUTTON - //
             if (m == "REZ_T"){
-                if(gHasRezed) llShout(BROADCAST_CHANNEL,"#die#");
+                if(gHasRezed) return;
+                llShout(BROADCAST_CHANNEL,"#die#");
                 rezSculptNodes(1);
                 return;
             }
             // - REZ BUTTON - //
             if (m == "REZ_C"){
-                if(gHasRezed) llShout(BROADCAST_CHANNEL,"#die#");
+                if(gHasRezed) return;
+                llShout(BROADCAST_CHANNEL,"#die#");
                 rezSculptNodes(0);
                 return;
             }
@@ -280,6 +288,7 @@ default
             if ( m == "DELETE" )
             {
                 llRegionSay(BROADCAST_CHANNEL,"#die#");
+                gHasRezed = FALSE;
             }
             // - RENDER MENU - //
             if (m == "ENCLOSER"){
@@ -407,6 +416,10 @@ default
         if( c == -2002 ) {
             llOwnerSay("Error on row " + m);
         }
+        if( c == COMMON_CHANNEL)
+        {
+        	if(m == "#send-bcast#") llRegionSay(COMMON_CHANNEL,"#bcast#" + (string)BROADCAST_CHANNEL);
+        }
     }
 
     link_message(integer sn, integer n, string s, key id)
@@ -414,6 +427,7 @@ default
         //Done Rezing
         if( id == "#rez_fin#" )
         {
+        	gHasRezed = TRUE;
             gDataserverRequest = llGetNotecardLine("OpenLoft URL",0);
         }
     }
