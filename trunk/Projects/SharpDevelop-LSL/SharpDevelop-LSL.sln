@@ -6,98 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = postProject
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Loft", "Open Loft", "{37095BA6-628B-40C8-9BED-DA3702DE1D51}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\CHANGELOG.txt = ..\OpenLoft\CHANGELOG.txt
-		..\OpenLoft\COPYING.txt = ..\OpenLoft\COPYING.txt
-		..\OpenLoft\Physical-KeepStill.lsl = ..\OpenLoft\Physical-KeepStill.lsl
-		..\OpenLoft\README.txt = ..\OpenLoft\README.txt
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Loft Tool", "Open Loft Tool", "{DDDE65E2-99AC-49B0-80EF-54270AFE797A}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\OpenLoft.lsl = ..\OpenLoft\Open Loft Tool\OpenLoft.lsl
-		..\OpenLoft\Open Loft Tool\OpenLoft URL = ..\OpenLoft\Open Loft Tool\OpenLoft URL
-		..\OpenLoft\Open Loft Tool\BezierRez.lsl = ..\OpenLoft\Open Loft Tool\BezierRez.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enclose Tool", "Enclose Tool", "{C5E07CFF-EA6C-41DD-917C-8C28FDD84EA4}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\Enclose Tool\encloser.lsl = ..\OpenLoft\Open Loft Tool\Enclose Tool\encloser.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test-sculpt", "test-sculpt", "{CCA797A8-C676-4CF1-A62C-77779F5A4A1B}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\Enclose Tool\test-sculpt\reshape.lsl = ..\OpenLoft\Open Loft Tool\Enclose Tool\test-sculpt\reshape.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mirror Tool", "Mirror Tool", "{7AF75E8C-7532-45F7-857D-4A838E7DAF15}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\Mirror Tool\mirror.lsl = ..\OpenLoft\Open Loft Tool\Mirror Tool\mirror.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Node Tool", "Node Tool", "{44F06D2E-9E48-4F61-85B0-F591C4BDC29D}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\Node Tool\nodetools.lsl = ..\OpenLoft\Open Loft Tool\Node Tool\nodetools.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "control", "control", "{2BA7B009-7761-40B2-8923-B3C3F1735A7C}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\control\control.lsl = ..\OpenLoft\Open Loft Tool\control\control.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cut", "cut", "{9B2897D4-C6A1-47F6-8813-DCA0E2FCA33D}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\cut\bezier.lsl = ..\OpenLoft\Open Loft Tool\cut\bezier.lsl
-		..\OpenLoft\Open Loft Tool\cut\Bezier Controller.lsl = ..\OpenLoft\Open Loft Tool\cut\Bezier Controller.lsl
-		..\OpenLoft\Open Loft Tool\cut\Data Transfer.lsl = ..\OpenLoft\Open Loft Tool\cut\Data Transfer.lsl
-		..\OpenLoft\Open Loft Tool\cut\HTTP Sender.lsl = ..\OpenLoft\Open Loft Tool\cut\HTTP Sender.lsl
-		..\OpenLoft\Open Loft Tool\cut\Node Control.lsl = ..\OpenLoft\Open Loft Tool\cut\Node Control.lsl
-		..\OpenLoft\Open Loft Tool\cut\State Control.lsl = ..\OpenLoft\Open Loft Tool\cut\State Control.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "node", "node", "{C9888057-7CCE-4A2C-AB4D-0D34604F714D}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Open Loft Tool\cut\node\Node.lsl = ..\OpenLoft\Open Loft Tool\cut\node\Node.lsl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Website Scripts", "Website Scripts", "{DB93B399-2A6E-4DE6-BF4B-5427F8404DD2}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenLoft\Website Scripts\http_request.inc.php = ..\OpenLoft\Website Scripts\http_request.inc.php
-		..\OpenLoft\Website Scripts\openloft_config.inc.php = ..\OpenLoft\Website Scripts\openloft_config.inc.php
-		..\OpenLoft\Website Scripts\vertex2sculpt.php = ..\OpenLoft\Website Scripts\vertex2sculpt.php
-		..\OpenLoft\Website Scripts\func.gdbundle.php = ..\OpenLoft\Website Scripts\func.gdbundle.php
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Babel Fish", "Open Babel Fish", "{4D550A2C-60C9-4143-A7E9-826574AA9F93}"
-	ProjectSection(SolutionItems) = postProject
-		..\OpenBabelFish\babel.php = ..\OpenBabelFish\babel.php
-		..\OpenBabelFish\Changelog.txt = ..\OpenBabelFish\Changelog.txt
-		..\OpenBabelFish\Copying.txt = ..\OpenBabelFish\Copying.txt
-		..\OpenBabelFish\lang-sl.txt = ..\OpenBabelFish\lang-sl.txt
-		..\OpenBabelFish\lang-tl.txt = ..\OpenBabelFish\lang-tl.txt
-		..\OpenBabelFish\Open Babel Fish.lsl = ..\OpenBabelFish\Open Babel Fish.lsl
-		..\OpenBabelFish\Open Babel Fish Dialog.lsl = ..\OpenBabelFish\Open Babel Fish Dialog.lsl
-		..\OpenBabelFish\Open Babel Fish Query.lsl = ..\OpenBabelFish\Open Babel Fish Query.lsl
-		..\OpenBabelFish\ReadMe.txt = ..\OpenBabelFish\ReadMe.txt
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Linked Prim Animator Lite", "Linked Prim Animator Lite", "{676ECBF3-EC20-495B-913F-E9809A5C70F0}"
 	ProjectSection(SolutionItems) = postProject
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{69EEE87C-E020-45C9-87A1-14346394890E}"
-	ProjectSection(SolutionItems) = postProject
-		..\LPAL\Documentation\COPYING.txt = ..\LPAL\Documentation\COPYING.txt
-		..\LPAL\Documentation\Example Replay Script (Put in Root).lsl = ..\LPAL\Documentation\Example Replay Script (Put in Root).lsl
-		..\LPAL\Documentation\LPA Readme.txt = ..\LPAL\Documentation\LPA Readme.txt
-		..\LPAL\Documentation\LPAL Protocol.txt = ..\LPAL\Documentation\LPAL Protocol.txt
-		..\LPAL\Documentation\LPAL Protocol.xls = ..\LPAL\Documentation\LPAL Protocol.xls
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Children", "Children", "{562E9EAB-074F-409C-88B5-9F3B5CA4F4FF}"
-	ProjectSection(SolutionItems) = postProject
-		..\LPAL\Children\LPA Frame Controller.lsl = ..\LPAL\Children\LPA Frame Controller.lsl
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{34BEDBB6-0C6F-4A92-B498-157B2BE854A5}"
@@ -124,6 +34,97 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module Template", "Module T
 		..\LPAL\Root\Recording Modules\Module Template\Template.py = ..\LPAL\Root\Recording Modules\Module Template\Template.py
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Children", "Children", "{562E9EAB-074F-409C-88B5-9F3B5CA4F4FF}"
+	ProjectSection(SolutionItems) = postProject
+		..\LPAL\Children\LPA Frame Controller.lsl = ..\LPAL\Children\LPA Frame Controller.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{69EEE87C-E020-45C9-87A1-14346394890E}"
+	ProjectSection(SolutionItems) = postProject
+		..\LPAL\Documentation\COPYING.txt = ..\LPAL\Documentation\COPYING.txt
+		..\LPAL\Documentation\Example Replay Script (Put in Root).lsl = ..\LPAL\Documentation\Example Replay Script (Put in Root).lsl
+		..\LPAL\Documentation\LPA Readme.txt = ..\LPAL\Documentation\LPA Readme.txt
+		..\LPAL\Documentation\LPAL Protocol.txt = ..\LPAL\Documentation\LPAL Protocol.txt
+		..\LPAL\Documentation\LPAL Protocol.xls = ..\LPAL\Documentation\LPAL Protocol.xls
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Babel Fish", "Open Babel Fish", "{4D550A2C-60C9-4143-A7E9-826574AA9F93}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenBabelFish\babel.php = ..\OpenBabelFish\babel.php
+		..\OpenBabelFish\Changelog.txt = ..\OpenBabelFish\Changelog.txt
+		..\OpenBabelFish\Copying.txt = ..\OpenBabelFish\Copying.txt
+		..\OpenBabelFish\lang-sl.txt = ..\OpenBabelFish\lang-sl.txt
+		..\OpenBabelFish\lang-tl.txt = ..\OpenBabelFish\lang-tl.txt
+		..\OpenBabelFish\Open Babel Fish.lsl = ..\OpenBabelFish\Open Babel Fish.lsl
+		..\OpenBabelFish\Open Babel Fish Dialog.lsl = ..\OpenBabelFish\Open Babel Fish Dialog.lsl
+		..\OpenBabelFish\Open Babel Fish Query.lsl = ..\OpenBabelFish\Open Babel Fish Query.lsl
+		..\OpenBabelFish\ReadMe.txt = ..\OpenBabelFish\ReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Loft", "Open Loft", "{37095BA6-628B-40C8-9BED-DA3702DE1D51}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\CHANGELOG.txt = ..\OpenLoft\CHANGELOG.txt
+		..\OpenLoft\COPYING.txt = ..\OpenLoft\COPYING.txt
+		..\OpenLoft\Physical-KeepStill.lsl = ..\OpenLoft\Physical-KeepStill.lsl
+		..\OpenLoft\README.txt = ..\OpenLoft\README.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Website Scripts", "Website Scripts", "{DB93B399-2A6E-4DE6-BF4B-5427F8404DD2}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Website Scripts\http_request.inc.php = ..\OpenLoft\Website Scripts\http_request.inc.php
+		..\OpenLoft\Website Scripts\openloft_config.inc.php = ..\OpenLoft\Website Scripts\openloft_config.inc.php
+		..\OpenLoft\Website Scripts\vertex2sculpt.php = ..\OpenLoft\Website Scripts\vertex2sculpt.php
+		..\OpenLoft\Website Scripts\func.gdbundle.php = ..\OpenLoft\Website Scripts\func.gdbundle.php
+		..\OpenLoft\Website Scripts\vertex2slice.php = ..\OpenLoft\Website Scripts\vertex2slice.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Loft Tool", "Open Loft Tool", "{DDDE65E2-99AC-49B0-80EF-54270AFE797A}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\OpenLoft.lsl = ..\OpenLoft\Open Loft Tool\OpenLoft.lsl
+		..\OpenLoft\Open Loft Tool\OpenLoft URL = ..\OpenLoft\Open Loft Tool\OpenLoft URL
+		..\OpenLoft\Open Loft Tool\BezierRez.lsl = ..\OpenLoft\Open Loft Tool\BezierRez.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cut", "cut", "{9B2897D4-C6A1-47F6-8813-DCA0E2FCA33D}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\cut\bezier.lsl = ..\OpenLoft\Open Loft Tool\cut\bezier.lsl
+		..\OpenLoft\Open Loft Tool\cut\Bezier Controller.lsl = ..\OpenLoft\Open Loft Tool\cut\Bezier Controller.lsl
+		..\OpenLoft\Open Loft Tool\cut\Data Transfer.lsl = ..\OpenLoft\Open Loft Tool\cut\Data Transfer.lsl
+		..\OpenLoft\Open Loft Tool\cut\HTTP Sender.lsl = ..\OpenLoft\Open Loft Tool\cut\HTTP Sender.lsl
+		..\OpenLoft\Open Loft Tool\cut\Node Control.lsl = ..\OpenLoft\Open Loft Tool\cut\Node Control.lsl
+		..\OpenLoft\Open Loft Tool\cut\State Control.lsl = ..\OpenLoft\Open Loft Tool\cut\State Control.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "node", "node", "{C9888057-7CCE-4A2C-AB4D-0D34604F714D}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\cut\node\Node.lsl = ..\OpenLoft\Open Loft Tool\cut\node\Node.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "control", "control", "{2BA7B009-7761-40B2-8923-B3C3F1735A7C}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\control\control.lsl = ..\OpenLoft\Open Loft Tool\control\control.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Node Tool", "Node Tool", "{44F06D2E-9E48-4F61-85B0-F591C4BDC29D}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\Node Tool\nodetools.lsl = ..\OpenLoft\Open Loft Tool\Node Tool\nodetools.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mirror Tool", "Mirror Tool", "{7AF75E8C-7532-45F7-857D-4A838E7DAF15}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\Mirror Tool\mirror.lsl = ..\OpenLoft\Open Loft Tool\Mirror Tool\mirror.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enclose Tool", "Enclose Tool", "{C5E07CFF-EA6C-41DD-917C-8C28FDD84EA4}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\Enclose Tool\encloser.lsl = ..\OpenLoft\Open Loft Tool\Enclose Tool\encloser.lsl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test-sculpt", "test-sculpt", "{CCA797A8-C676-4CF1-A62C-77779F5A4A1B}"
+	ProjectSection(SolutionItems) = postProject
+		..\OpenLoft\Open Loft Tool\Enclose Tool\test-sculpt\reshape.lsl = ..\OpenLoft\Open Loft Tool\Enclose Tool\test-sculpt\reshape.lsl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,22 +133,22 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{676ECBF3-EC20-495B-913F-E9809A5C70F0} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
-		{4D550A2C-60C9-4143-A7E9-826574AA9F93} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
 		{37095BA6-628B-40C8-9BED-DA3702DE1D51} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
-		{DB93B399-2A6E-4DE6-BF4B-5427F8404DD2} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
-		{DDDE65E2-99AC-49B0-80EF-54270AFE797A} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
-		{9B2897D4-C6A1-47F6-8813-DCA0E2FCA33D} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
-		{2BA7B009-7761-40B2-8923-B3C3F1735A7C} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
-		{44F06D2E-9E48-4F61-85B0-F591C4BDC29D} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
-		{7AF75E8C-7532-45F7-857D-4A838E7DAF15} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
-		{C5E07CFF-EA6C-41DD-917C-8C28FDD84EA4} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
-		{CCA797A8-C676-4CF1-A62C-77779F5A4A1B} = {C5E07CFF-EA6C-41DD-917C-8C28FDD84EA4}
-		{C9888057-7CCE-4A2C-AB4D-0D34604F714D} = {9B2897D4-C6A1-47F6-8813-DCA0E2FCA33D}
-		{34BEDBB6-0C6F-4A92-B498-157B2BE854A5} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
-		{562E9EAB-074F-409C-88B5-9F3B5CA4F4FF} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
+		{4D550A2C-60C9-4143-A7E9-826574AA9F93} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
+		{676ECBF3-EC20-495B-913F-E9809A5C70F0} = {3B78B02B-383A-467F-8C45-6B17BC1CF0E3}
 		{69EEE87C-E020-45C9-87A1-14346394890E} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
+		{562E9EAB-074F-409C-88B5-9F3B5CA4F4FF} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
+		{34BEDBB6-0C6F-4A92-B498-157B2BE854A5} = {676ECBF3-EC20-495B-913F-E9809A5C70F0}
 		{BBD5B517-8B59-43A6-9333-95CF2516BFBD} = {34BEDBB6-0C6F-4A92-B498-157B2BE854A5}
 		{D04F3946-332D-41B7-8018-A7510DB53257} = {BBD5B517-8B59-43A6-9333-95CF2516BFBD}
+		{DDDE65E2-99AC-49B0-80EF-54270AFE797A} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
+		{DB93B399-2A6E-4DE6-BF4B-5427F8404DD2} = {37095BA6-628B-40C8-9BED-DA3702DE1D51}
+		{C5E07CFF-EA6C-41DD-917C-8C28FDD84EA4} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
+		{7AF75E8C-7532-45F7-857D-4A838E7DAF15} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
+		{44F06D2E-9E48-4F61-85B0-F591C4BDC29D} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
+		{2BA7B009-7761-40B2-8923-B3C3F1735A7C} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
+		{9B2897D4-C6A1-47F6-8813-DCA0E2FCA33D} = {DDDE65E2-99AC-49B0-80EF-54270AFE797A}
+		{C9888057-7CCE-4A2C-AB4D-0D34604F714D} = {9B2897D4-C6A1-47F6-8813-DCA0E2FCA33D}
+		{CCA797A8-C676-4CF1-A62C-77779F5A4A1B} = {C5E07CFF-EA6C-41DD-917C-8C28FDD84EA4}
 	EndGlobalSection
 EndGlobal
