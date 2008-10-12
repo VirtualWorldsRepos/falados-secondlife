@@ -29,9 +29,9 @@ integer gPointType;
 
 integer processRootCommands(string message)
 {
-	if( llSubStringIndex(message,"#ctrl#") == 0 )
+	if( llSubStringIndex(message,"#bez-ctrl#") == 0 )
 	{
-		list parameters = llCSV2List( llGetSubString(message,6,-1));
+		list parameters = llCSV2List( llGetSubString(message,10,-1));
 		MAX_CONTROL_POINTS = llGetListLength(parameters);
 		CONTROL_POINT_NUM = llListFindList(parameters,[(string)llGetKey()]);
 		if( CONTROL_POINT_NUM == -1) llDie();
@@ -47,9 +47,9 @@ integer processRootCommands(string message)
 		list l = llCSV2List(llGetSubString(message,7,-1));
 		ACCESS_LEVEL = (integer)llList2String(l,1);
 	}
-	if( llSubStringIndex(message,"#anchors#") == 0)
+	if( llSubStringIndex(message,"#bez-anchors#") == 0)
 	{
-		list parameters = llCSV2List( llGetSubString(message,9,-1));
+		list parameters = llCSV2List( llGetSubString(message,13,-1));
 		integer anchor = llListFindList(parameters,[(string)llGetKey()]);
 		if(CONTROL_POINT_NUM == 0 || CONTROL_POINT_NUM == MAX_CONTROL_POINTS-1 || anchor != -1)
 		{
