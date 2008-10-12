@@ -118,10 +118,10 @@ particleBeam(key target)
 	if( target)
 		llParticleSystem([
 			PSYS_PART_FLAGS,
-		PSYS_PART_EMISSIVE_MASK|
-		PSYS_PART_FOLLOW_VELOCITY_MASK|
-		PSYS_PART_FOLLOW_SRC_MASK|
-		PSYS_PART_TARGET_POS_MASK,
+				PSYS_PART_EMISSIVE_MASK|
+				PSYS_PART_FOLLOW_VELOCITY_MASK|
+				PSYS_PART_FOLLOW_SRC_MASK|
+				PSYS_PART_TARGET_POS_MASK,
 		PSYS_PART_MAX_AGE, 1.0,
 		PSYS_PART_START_ALPHA,0.99,
 		PSYS_PART_START_COLOR,<1,1,1>,
@@ -141,42 +141,48 @@ setShape(vector color)
 {
 	vector DEFAULT_COLOR = get_color(MY_ROW);
 	gLastColor = color;
+	float ty = (MY_ROW % 64)/64.0;
+	float tx = llFloor(MY_ROW / 64.0)*0.25;
+	vector offset;
+	vector repeats = <0.250,0.015625,0>;
+	vector start = <-0.380,0.492,0>;
+	vector end = <0.620,-0.508,0>;
+	offset.x = (1.0-tx)*start.x + tx*end.x;
+	offset.y = (1.0-ty)*start.y + ty*end.y;
+    
 	if( gSculptType == SCULPT_POINT ) {
 		llSetPrimitiveParams([
 			PRIM_TYPE,PRIM_TYPE_SPHERE,PRIM_HOLE_DEFAULT ,<0,1,0>,0.0,<0,0,0>,<0,1,0>,
-			PRIM_TEXTURE,ALL_SIDES,"5748decc-f629-461c-9a36-a35a221fe21f", <1,1,0>, <0,0,0>, 0,
-			PRIM_COLOR,ALL_SIDES,DEFAULT_COLOR,1.0,
-			PRIM_SIZE,<.05,.05,.05>
+			PRIM_TEXTURE,ALL_SIDES,"c438007c-813f-cda2-8ba7-01c201cd8648", repeats, offset, 0,
+			PRIM_COLOR,ALL_SIDES,DEFAULT_COLOR,1.0
 		]);
 	}
 	if(gSpawnShape == 0 && gSculptType == SCULPT_DISK) {
 		llSetPrimitiveParams([
 			PRIM_TYPE,PRIM_TYPE_CYLINDER, PRIM_HOLE_DEFAULT, <0,1,0>, 0.0, <0,0,0>, <1,1,0>, <0,0,0>,
 			PRIM_TEXTURE,0,"2cc5dcb6-595d-cbb9-e559-7d9e78270f2c", <1,1,0>, <0,0,0>, -PI_BY_TWO,
-			PRIM_TEXTURE,1,"5748decc-f629-461c-9a36-a35a221fe21f", <1,1,0>, <0,0,0>, 0,
+			PRIM_TEXTURE,1,"c438007c-813f-cda2-8ba7-01c201cd8648", repeats, offset, 0,
 			PRIM_TEXTURE,2,"2cc5dcb6-595d-cbb9-e559-7d9e78270f2c", <1,1,0>, <0,0,0>, -PI_BY_TWO,
 			PRIM_COLOR,0,color,1.0,
 			PRIM_COLOR,1,DEFAULT_COLOR,1.0,
-			PRIM_COLOR,2,color*.5,1.0,
-			PRIM_SIZE,gScale
+			PRIM_COLOR,2,color*.5,1.0
 		]);
 	}
 	if(gSpawnShape == 1 || gSculptType == SCULPT_NODE) {
 		llSetPrimitiveParams([
 			PRIM_TYPE,PRIM_TYPE_BOX,PRIM_HOLE_DEFAULT,<0, 1, 0>, 0, <0, 0, 0>, <1, 1, 0>, <0, 0, 0>,
 			PRIM_TEXTURE,0,"2cc5dcb6-595d-cbb9-e559-7d9e78270f2c", <1, 1, 0>, <0, 0, 0>, -PI_BY_TWO,
-			PRIM_TEXTURE,1,"5748decc-f629-461c-9a36-a35a221fe21f", <1, 1, 0>, <0, 0, 0>, 0,
-			PRIM_TEXTURE,2,"5748decc-f629-461c-9a36-a35a221fe21f", <1, 1, 0>, <0, 0, 0>, 0,
-			PRIM_TEXTURE,3,"5748decc-f629-461c-9a36-a35a221fe21f", <1, 1, 0>, <0, 0, 0>, 0,
-			PRIM_TEXTURE,4,"5748decc-f629-461c-9a36-a35a221fe21f", <1, 1, 0>, <0, 0, 0>, 0,
+			PRIM_TEXTURE,1,"c438007c-813f-cda2-8ba7-01c201cd8648", repeats, offset, 0,
+			PRIM_TEXTURE,2,"c438007c-813f-cda2-8ba7-01c201cd8648", repeats, offset, 0,
+			PRIM_TEXTURE,3,"c438007c-813f-cda2-8ba7-01c201cd8648", repeats, offset, 0,
+			PRIM_TEXTURE,4,"c438007c-813f-cda2-8ba7-01c201cd8648", repeats, offset, 0,
 			PRIM_TEXTURE,5,"2cc5dcb6-595d-cbb9-e559-7d9e78270f2c", <1, 1, 0>, <0, 0, 0>, -PI_BY_TWO,
-			PRIM_COLOR,0,color, .9,
-			PRIM_COLOR,1,DEFAULT_COLOR, .9,
-			PRIM_COLOR,2,DEFAULT_COLOR, .9,
-			PRIM_COLOR,3,DEFAULT_COLOR, .9,
-			PRIM_COLOR,4,DEFAULT_COLOR, .9,
-			PRIM_COLOR,5,color*.5, .9,
-			PRIM_SIZE,gScale
+			PRIM_COLOR,0,color, 1.0,
+			PRIM_COLOR,1,DEFAULT_COLOR, 1.0,
+			PRIM_COLOR,2,DEFAULT_COLOR, 1.0,
+			PRIM_COLOR,3,DEFAULT_COLOR, 1.0,
+			PRIM_COLOR,4,DEFAULT_COLOR, 1.0,
+			PRIM_COLOR,5,color*.5, 1.0
 		]);
 	}
 }

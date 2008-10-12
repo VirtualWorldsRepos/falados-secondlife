@@ -21,8 +21,6 @@ integer CHANNEL_MASK = 0xFFFFFF00;
 integer CONTROL_POINT_MASK = 0xFF;
 integer ACCESS_LEVEL		= 2;	//2 = OWNER, 1 = GROUP, 0 = ALL
 integer MY_ROW;			//Set on_rez
-integer ROWS;
-integer COLUMNS;
 integer IS_ACTIVE = FALSE;
 
 //LinkCommands
@@ -43,6 +41,8 @@ string control_points;
 
 //Globals
 integer gListenHandle;
+list gBezierCapabilities;
+string gBezierControls;
 //-- FUNCTIONS --//
 
 //Get Access Allowed/Denited
@@ -68,40 +68,49 @@ integer has_access(key agent)
 
 handleRootCommand(string message) 
 {
-	if(llSubStringIndex(message,"#ctrl#")==0)
+	if(llSubStringIndex(message,"#bez-ctrl#")==0)
 	{
-		control_points = llGetSubString(message,6,-1);
-		if(IS_ACTIVE)
-		{
-			llMessageLinked(LINK_THIS,0,llList2CSV([ROWS+1,MY_ROW]),"#bez_info#");
-			llMessageLinked(LINK_THIS,0,control_points,"#bez_start#");					
-		}
+		gBezierControls = llGetSubString(message,10,-1);
+		llMessageLinked(LINK_THIS,0,gBezierControls,"#bez_ctrl#");
 	}
 	if(llSubStringIndex(message,"#bez-caps#")==0)
 	{
-		llMessageLinked(LINK_THIS,0,llGetSubString(message,10,-1),"#bez_caps#");
+		list bc = llCSV2List(llGetSubString(message,10,-1));
+		while(bc != [])
+		{
+			integer i = llListFindList(gBezierCapabilities,llList2List(bc,0,0));
+			if( i == -1)
+			{
+				gBezierCapabilities += llList2List(bc,0,1);
+			} else {
+				gBezierCapabilities = llListReplaceList(gBezierCapabilities,llList2List(bc,0,1),i,i+1);
+			}
+			bc = llDeleteSubList(bc,0,1);
+		}
+		llMessageLinked(LINK_THIS,0,llList2CSV(gBezierCapabilities),"#bez_caps#");
 	}
-	if(message == "#bezier-start#")
+	if(llSubStringIndex(message,"#bez-start#")==0)
 	{
-		llSetScriptState("bezier",TRUE);
+		list range = llCSV2List(llGetSubString(message,11,-1));
+		integer start = llList2Integer(range,0);
+		integer end = llList2Integer(range,1);
+		if( MY_ROW >= start && MY_ROW <= end)
+		{
+			integer length = end-start;
+			start = MY_ROW - start;
+			llSetScriptState("bezier",TRUE);
+			llMessageLinked(LINK_THIS,0,llList2CSV(gBezierCapabilities),"#bez_caps#");
+			llMessageLinked(LINK_THIS,0,llList2CSV([length+2,start]),"#bez_info#");
+			llMessageLinked(LINK_THIS,0,gBezierControls,"#bez_ctrl#");
+			llMessageLinked(LINK_THIS,50,"","#bez_start#");
+		} else {
+			llMessageLinked(LINK_THIS,0,"","#bez_stop#");
+		}
 	}
-	if(message == "#bezier-stop#")
+	if(message == "#bez-stop#")
 	{
 		llMessageLinked(LINK_THIS,0,"","#bez_stop#");
 	}	
-}
-
-integer parse_setup_string(string message)
-{
-	if( llSubStringIndex(message,"#setup#") == 0)
-	{
-		list l = llCSV2List(llGetSubString(message,7,-1));
-		COLUMNS = (integer)llList2String(l,0);
-		ACCESS_LEVEL = (integer)llList2String(l,1);
-		ROWS = (integer)llList2String(l,2);
-		return TRUE;
-	}
-	return FALSE;
 }
 
 //-- STATES --//
@@ -118,25 +127,5 @@ default
 	{
 		if( !has_access(llGetOwnerKey(id)) ) return;
 		handleRootCommand(message);
-		if(parse_setup_string(message))
-		{
-			state active;
-		}
 	}
-}
-
-state active
-{
-	state_entry()
-	{
-		llListen(BROADCAST_CHANNEL,"","","");
-		IS_ACTIVE = TRUE;
-		llMessageLinked(LINK_THIS,0,llList2CSV([ROWS+1,MY_ROW]),"#bez_info#");
-		llMessageLinked(LINK_THIS,0,control_points,"#bez_start#");		
-	}
-	listen( integer channel, string name, key id, string message )
-	{
-		if( !has_access(llGetOwnerKey(id)) ) return;
-		handleRootCommand(message);
-	}	
 }

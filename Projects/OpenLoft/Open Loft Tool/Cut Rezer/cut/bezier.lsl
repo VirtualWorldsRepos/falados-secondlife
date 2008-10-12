@@ -55,15 +55,16 @@ get_control_points()
 	for( i = 0; i < MAX_CONTROL_POINTS; ++i)
 	{
 		k = (key)llList2String(control_keys,i);
-		if( llKey2Name(k) == "")
+		list params = llGetObjectDetails(k,[OBJECT_NAME,OBJECT_POS,OBJECT_ROT]);
+		if( params == [] )
 		{
 			jump continue;
 		}
-		name = llList2String(llGetObjectDetails(k,[OBJECT_NAME]),0);
-		control_pos = (control_pos = []) + control_pos + llGetObjectDetails(k,[OBJECT_POS]);
+		name = llList2String(params,0);		
+		control_pos = (control_pos = []) + control_pos + llList2List(params,1,1);
 		bbox = llGetBoundingBox(k);
 		control_scale = (control_scale = []) + control_scale + [llList2Vector(bbox,1)-llList2Vector(bbox,0)];
-		control_rot = (control_rot = []) + control_rot + llGetObjectDetails(k,[OBJECT_ROT]);
+		control_rot = (control_rot = []) + control_rot + llList2List(params,2,2);
 		if( name == "anchor")
 		{
 			anchors += [i];
@@ -155,10 +156,13 @@ bezier()
 		pos += b * p;
 		if(INTERP_SCALE) scale += b * (llList2Vector(control_scale,start+i));
 	}
-	
+	if( llVecMag(pos-llGetPos()) > 20 )
+	{
+		llOwnerSay("Too Far!");
+		return;
+	}
 	vector s = llGetScale();
 	scale.z = s.z;
-	llSetPos(pos);
 	list prim_params = [PRIM_POSITION,pos];
 	if(INTERP_SCALE) prim_params += [PRIM_SIZE,scale];
 	if(INTERP_ROT) prim_params += [PRIM_ROTATION,slerp(llList2Rot(control_rot,start),llList2Rot(control_rot,start+i-1),tlocal)];
@@ -191,16 +195,21 @@ state enabled
 			}
 			control_keys = [];
 			llSetTimerEvent(0.0);
+			return;
 		} else
-		if( command == "#bez_start#")
+		if( command == "#bez_ctrl#")
 		{
 			control_keys = llCSV2List(str);
 			MAX_CONTROL_POINTS = llGetListLength(control_keys);
-			llSetTimerEvent(1.0);	   
+			return;
 		}
 		if( command == "#bez_stop#")
 		{
 			state default;
+		}
+		if( command == "#bez_start#")
+		{
+			llSetTimerEvent((float)num/100);
 		}
 		if( command == "#bez_caps#")
 		{
@@ -215,6 +224,7 @@ state enabled
 				if( KEY == "rot") INTERP_ROT = (integer)VAL;
 				caps = llDeleteSubList(caps,0,1);
 			}
+			return;
 		}
 	}
 	timer()
