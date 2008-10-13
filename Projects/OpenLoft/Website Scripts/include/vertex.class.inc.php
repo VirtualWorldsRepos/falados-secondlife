@@ -1,5 +1,5 @@
-﻿<?
-//	This file is part of OpenLoft.
+<?php
+/*	This file is part of OpenLoft.
 //
 //	OpenLoft is free software: you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 //	along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
 //	Authors: Falados Kapuskas
-
+*/
 defined('OL_INCLUDE') || die("Can't access this page directly");
 
 class vertex {
@@ -114,5 +114,4 @@ class vertex {
 	function toString() {
 		return "<{$this->x},{$this->y},{$this->z}>";
 	}
-};
-?>
+};?>

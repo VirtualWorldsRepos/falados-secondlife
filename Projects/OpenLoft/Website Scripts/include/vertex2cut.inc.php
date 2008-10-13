@@ -1,5 +1,5 @@
-<?
-//	This file is part of OpenLoft.
+<?php
+/*	This file is part of OpenLoft.
 //
 //	OpenLoft is free software: you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 //	along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
 //	Authors: Falados Kapuskas
+*/
 require_once('include/openloft_config.inc.php');
 require_once('include/gdbundle.inc.php');
 require_once('include/vertex.class.inc.php');
@@ -38,7 +39,7 @@ function fill_pie(&$image,$center,$prev,$curr,$width,$height,&$color)
 	);
 }
 
-function make_slice($row,$verts,$width,$height) {
+function make_cut_image($row,$verts,$width,$height) {
 	$center = new vertex(0,0,0);
 
 	$image = imagecreatetruecolor($width,$height);
@@ -119,7 +120,7 @@ function make_slice($row,$verts,$width,$height) {
 	return $image;
 }
 
-function upload_slice($slice_dir,$image_id)
+function upload_cut($cut_dir)
 {
 	//Convinence Variables
 	$issplit = FALSE;
@@ -130,7 +131,9 @@ function upload_slice($slice_dir,$image_id)
 		$start = $s[0];
 		$end = $s[1];
 	}
-
+	$pos = stripslashes($_REQUEST['pos']);
+	$scale = stripslashes($_REQUEST['scale']);
+	$rot = stripslashes($_REQUEST['rot']);
 	$verts = stripslashes($_REQUEST['verts']);
 	$row = stripslashes($_REQUEST['row']);
 	$params = stripslashes($_REQUEST['params']);
@@ -141,21 +144,21 @@ function upload_slice($slice_dir,$image_id)
 	//Populate the verticies on the row when all splits are received
 	if($issplit) {
 
-		$fd = fopen("$slice_dir/$image_id-$row.split","a+");
-		$fd || die("Could not open file: " . "$slice_dir/$image_id-$row.split");
+		$fd = fopen("$cut_dir/$row.split","a+");
+		$fd || die("Could not open file: " . "$cut_dir/$row.split");
 		fwrite($fd,$nverts);
 		if($start == $end) {
-			$nverts = fread($fd, filesize("$slice_dir/$image_id-$row.split"));
+			$nverts = fread($fd, filesize("$cut_dir/$row.split"));
 			fclose($fd);
 			$fd = FALSE;
-			unlink("$slice_dir/$image_id-$row.split");
+			unlink("$cut_dir/$row.split");
 		} else {
 			$nverts = FALSE;
 		}
 		if($fd) fclose($fd);
 	}
 	
-	$row_filename = "$slice_dir/$image_id.slice$row";
+	$row_filename = "$cut_dir/cut-$row.data";
 
 	//Write vertex dump to file
 	if( $nverts ) {
@@ -164,23 +167,75 @@ function upload_slice($slice_dir,$image_id)
 		fwrite($fd,"$nverts");
 		fclose($fd);
 	}
+	
+	$row_filename = "$cut_dir/cut-$row.loc";
+	
+	$fd = fopen($row_filename,"w");
+	if($fd)
+	{
+		fwrite("$pos|$scale|$rot");
+		fclose($fd);
+	} else {
+		die("Could not open file: $row_filename");
+	}
+	
 }
 
-function render_slice($slice_dir,$image_id,$row)
+function render_cut($cut_dir,$row)
 {
 	$input = array();
-	$row_filename = "$slice_dir/$image_id.slice$row";
+	$row_filename = "$cut_dir/cut-$row.data";
 	if( $input = file_get_contents($row_filename) ) {
 		//Do Nothing	
 	} else {
 		die("Couldn't open file $row_filename");
 	}
-	$imagename = "$slice_dir/${image_id}_slice$row.png";
-	$image = make_slice($row,$input,512,512);
+	$imagename = "$cut_dir/cut-$row.png";
+	$image = make_cut_image($row,$input,512,512);
 	if(imagepng($image,$imagename))
 	{
 		return fullpath($imagename);
 	}
 	return false;
+}
+
+function get_cut_data($cut_dir,$row,$part = 0)
+{
+	$row_filename = "$cut_dir/cut-$row.data";
+	if(!file_exists($row_filename)) return false;
+	$data = file_get_contents($row_filename);
+	if($part == "all")
+	{
+		$path = fullpath($row_filename);
+		return "Slice $row: <$path>";
+	}
+	$len = RESPONSE_LEN-10;
+	$packets = ceil(strlen($data)/$len);
+	$header = "$part/$packets";
+	
+	if($packets == 1)
+	{
+		return "0/1\n$data";
+	} else {
+		if($part < $packets)
+		{
+			return $header . "##" . substr($data,$len*$part,$len);
+		} else {
+			return "\n\n\n"; //EOF
+		}
+	}
+}
+function get_cuts($cut_dir)
+{
+	$row = 0;
+	$filename = "$cut_dir/cut_$row.loc";
+	$cuts = "";
+	while(file_exists($filename))
+	{
+		$cuts .= file_get_contents($filename) . "\n";
+		++$row;
+		$filename = "$cut_dir/cut_$row.loc";
+	}
+	return rtrim($cuts);
 }
 ?>
