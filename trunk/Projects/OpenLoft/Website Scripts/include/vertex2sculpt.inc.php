@@ -1,5 +1,5 @@
-<?
-//	This file is part of OpenLoft.
+<?php
+/*	This file is part of OpenLoft.
 //
 //	OpenLoft is free software: you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 //	along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
 //	Authors: Falados Kapuskas
-
+*/
 require_once('include/openloft_config.inc.php');
 require_once('include/gdbundle.inc.php');
 require_once('include/vertex.class.inc.php');
@@ -170,5 +170,4 @@ function render($vert_dir,$render_dir,$image_id)
 		return fullpath("$render_dir/$image_id.png");
 	}
 	return false;
-}
-?>
+}?>

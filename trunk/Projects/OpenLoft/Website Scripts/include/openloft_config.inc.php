@@ -1,5 +1,5 @@
-<?
-//	This file is part of OpenLoft.
+<?php
+/*	This file is part of OpenLoft.
 //
 //	OpenLoft is free software: you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -14,13 +14,13 @@
 //	You should have received a copy of the GNU General Public License
 //	along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
-//	Authors: Falados Kapuskas, JoeTheCatboy Freelunch
-
+//	Authors: Falados Kapuskas
+*/
 defined('OL_INCLUDE') || die("Can't access this page directly");
 
 require_once('http_request.inc.php');
 //--Configuration Parameters--//
-
+define('RESPONSE_LEN',2048);
 define('FLOAT_PRECISION',3);
 
 //--Subnets for LL Servers--//
@@ -92,5 +92,4 @@ $ll_object_key = $headers['x-secondlife-object-key'];
 $ll_object_name = $headers['x-secondlife-object-name'];
 $ll_object_pos = $headers['x-secondlife-local-position'];
 $ll_object_rot = $headers['x-secondlife-local-rotation'];
-$ll_object_vel = $headers['x-secondlife-local-velocity'];
-?>
+$ll_object_vel = $headers['x-secondlife-local-velocity'];?>

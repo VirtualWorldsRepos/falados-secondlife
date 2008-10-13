@@ -1,5 +1,5 @@
-﻿<?
-//	This file is part of OpenLoft.
+<?php
+/*	This file is part of OpenLoft.
 //
 //	OpenLoft is free software: you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -15,24 +15,28 @@
 //	along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
 //	Authors: Falados Kapuskas
+*/
+header('Content-type: text/plain');
 define('OL_INCLUDE','1');
-
 require_once('include/openloft_config.inc.php');
 require_once('include/vertex2sculpt.inc.php');
-require_once('include/vertex2slice.inc.php');
+require_once('include/vertex2cut.inc.php');
 
 if(!isset($_REQUEST['action'])) exit;
 $action = $_REQUEST['action'];
 $image_id = $_REQUEST['image'];
+$row = $_REQUEST['row'];
 
-if($is_ll)
+function create_dirs($image_id)
 {
+	global $ll_owner_key;
 	if( !file_exists($ll_owner_key) ) mkdir($ll_owner_key);
+	if( !file_exists("$ll_owner_key/$image_id") ) mkdir("$ll_owner_key/$image_id");
 	$subdirs = array
 	(
-		"$ll_owner_key/slices",
-		"$ll_owner_key/uploads",
-		"$ll_owner_key/rendered"
+		"$ll_owner_key/$image_id/cuts",
+		"$ll_owner_key/$image_id/uploads",
+		"$ll_owner_key/$image_id/rendered"
 	);
 	foreach($subdirs as $subdir)
 	{
@@ -48,44 +52,52 @@ while(file_exists("$ll_owner_key/rendered/$image_id"))
 	$image_id = "$original_id_$num";
 }
 */
+
+if($is_ll) create_dirs($image_id);
+else return;
+
+$cut_dir = "$ll_owner_key/$image_id/cuts";
+$upload_dir = "$ll_owner_key/$image_id/uploads";
+$render_dir = "$ll_owner_key/$image_id/rendered"; 
+
 switch($action)
 {
-	case "upload-slice":
-		if(!file_exists("$ll_owner_key/slices/$image_id")) mkdir("$ll_owner_key/slices/$image_id");
-		upload_slice("$ll_owner_key/slices/$image_id",$image_id);
-		break;
+	case "upload-cut":
+		upload_cut($cut_dir);
+	break;
 	case "upload-render":
-		if(!file_exists("$ll_owner_key/uploads/$image_id")) mkdir("$ll_owner_key/uploads/$image_id");
-		upload_render("$ll_owner_key/uploads/$image_id",$image_id);
-		break;
+		upload_render($upload_dir,$image_id);
+	break;
 	case "render-sculpt":
-		if(!file_exists("$ll_owner_key/rendered/$image_id")) mkdir("$ll_owner_key/rendered/$image_id");
-		$path = render("$ll_owner_key/uploads/$image_id","$ll_owner_key/rendered/$image_id",$image_id);
+		$path = render($upload_dir,$render_dir,$image_id);
 		if($path)
 		{
 			echo("Your Sculpt Image:\n<$path>");
 		} else {
 			echo("Could not render sculpt");
 		}
-		break;
-	case "get-slice-image":
-		$path = render_slice("$ll_owner_key/slices/$image_id",$image_id,$_REQUEST['row']);
+	break;
+	case "get-cut-image":
+		$path = render_cut($cut_dir,$row);
 		if($path)
 		{
 			echo("Your Slice Image:\n<$path>");
 		} else {
-			echo("Could not make slice image");
+			echo("Could not make image for cut $row");
 		}
-		break;
-	case "get-slice":
-		$row = $_REQUEST['row'];
-		$row_filename = "$ll_owner_key/slices/$image_id/$image_id.slice$row";
-		if(file_exists($row_filename))
+	break;
+	case "get-cut-data":
+		$part = 0;
+		if(isset($_REQUEST['part'])) $part = $_REQUEST['part'];
+		if($data = get_cut_data($cut_dir,$row,$part) )
 		{
-			echo(file_get_contents($row_filename));
+			echo($data);
 		} else {
-			echo("Could not get slice : $row_filename");
+			echo("Could not get data for cut $row");
 		}
-		break;
+	break;
+	case "get-cuts":
+		return get_cuts($cut_dir);
+	break;
 }
 ?>
