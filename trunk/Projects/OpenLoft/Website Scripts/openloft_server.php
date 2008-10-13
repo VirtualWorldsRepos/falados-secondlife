@@ -53,8 +53,9 @@ while(file_exists("$ll_owner_key/rendered/$image_id"))
 }
 */
 
-if($is_ll) create_dirs($image_id);
-else return;
+if($is_ll) {
+	if(isset($_REQUEST['image'])) { create_dirs($image_id); }
+} else return;
 
 $cut_dir = "$ll_owner_key/$image_id/cuts";
 $upload_dir = "$ll_owner_key/$image_id/uploads";
@@ -77,11 +78,11 @@ switch($action)
 			echo("Could not render sculpt");
 		}
 	break;
-	case "get-cut-image":
+	case "render-cut":
 		$path = render_cut($cut_dir,$row);
 		if($path)
 		{
-			echo("Your Slice Image:\n<$path>");
+			echo("Your Cut Image:\n<$path>");
 		} else {
 			echo("Could not make image for cut $row");
 		}
@@ -97,7 +98,20 @@ switch($action)
 		}
 	break;
 	case "get-cuts":
-		return get_cuts($cut_dir);
+		echo get_cuts($cut_dir);
+	break;
+	case "get-sculpts":
+		$files = scandir("$ll_owner_key");
+		$sculpts = "";
+		foreach($files as $file)
+		{
+			if($file == "." || $file == "..") continue;
+			if(is_dir("$ll_owner_key/$file"))
+			{
+				$sculpts .= "$file\n";
+			}
+		}
+		echo rtrim($sculpts);
 	break;
 }
 ?>

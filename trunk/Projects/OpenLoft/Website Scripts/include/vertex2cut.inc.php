@@ -173,7 +173,7 @@ function upload_cut($cut_dir)
 	$fd = fopen($row_filename,"w");
 	if($fd)
 	{
-		fwrite("$pos|$scale|$rot");
+		fwrite($fd,"$pos|$scale|$rot");
 		fclose($fd);
 	} else {
 		die("Could not open file: $row_filename");
@@ -219,7 +219,7 @@ function get_cut_data($cut_dir,$row,$part = 0)
 	} else {
 		if($part < $packets)
 		{
-			return $header . "##" . substr($data,$len*$part,$len);
+			return $header . "\n" . substr($data,$len*$part,$len);
 		} else {
 			return "\n\n\n"; //EOF
 		}
@@ -228,13 +228,13 @@ function get_cut_data($cut_dir,$row,$part = 0)
 function get_cuts($cut_dir)
 {
 	$row = 0;
-	$filename = "$cut_dir/cut_$row.loc";
+	$filename = "$cut_dir/cut-{$row}.loc";
 	$cuts = "";
 	while(file_exists($filename))
 	{
-		$cuts .= file_get_contents($filename) . "\n";
+		$cuts =  $cuts . file_get_contents($filename) . "\n";
 		++$row;
-		$filename = "$cut_dir/cut_$row.loc";
+		$filename = "$cut_dir/cut-{$row}.loc";
 	}
 	return rtrim($cuts);
 }
