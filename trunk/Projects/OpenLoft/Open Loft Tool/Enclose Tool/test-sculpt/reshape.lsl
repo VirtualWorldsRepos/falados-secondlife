@@ -13,7 +13,7 @@
 //	You should have received a copy of the GNU General Public License
 //	along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
-//	Authors: Falados Kapuskas, JoeTheCatboy Freelunch
+//	Authors: Falados Kapuskas
 
 key DEFAULT_SCULPT = "39d23b96-719c-b893-d3c8-30b9074cd2f8";
 

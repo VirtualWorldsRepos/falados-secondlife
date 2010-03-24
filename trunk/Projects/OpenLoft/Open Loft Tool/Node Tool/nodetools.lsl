@@ -13,7 +13,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
-//    Authors: Falados Kapuskas, JoeTheCatboy Freelunch
+//    Authors: Falados Kapuskas
 
 integer CHANNEL_MASK = 0xFFFFFF00;
 integer CONTROL_POINT_MASK = 0xFF;

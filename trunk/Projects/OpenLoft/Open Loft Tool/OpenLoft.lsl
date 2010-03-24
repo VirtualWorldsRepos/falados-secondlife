@@ -13,7 +13,7 @@
 //	You should have received a copy of the GNU General Public License
 //	along with OpenLoft.  If not, see <http://www.gnu.org/licenses/>.
 //
-//	Authors: Falados Kapuskas, JoeTheCatboy Freelunch
+//	Authors: Falados Kapuskas
 
 //-- CONSTANTS --//
 list HTTP_PARAMS = [
@@ -475,14 +475,19 @@ processDialog(integer channel,string name, key id, string button)
 		llRegionSay(BROADCAST_CHANNEL,"#bez-caps#" + llList2CSV(["rot",0]));
 		return;
 	}
-
-
-	
 }
 
 //-- STATES --//
+default {
+	on_rez(integer i){llResetScript();}
+	state_entry()
+	{
+		
+	}
+}
 
-default
+
+state active
 {
 	state_entry()
 	{
