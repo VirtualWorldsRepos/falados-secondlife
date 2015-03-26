@@ -1,0 +1,50 @@
+# Introduction #
+
+The following are the link messages that are used throughout the LPAL setup and playback process.  You may take advantage of this in order to create custom scripts that use some of the LPAL scripts.
+
+
+# Protocol #
+
+  * Assume link\_message( integer send\_number , integer NUM , string STRING , key ID )
+  * Protocol is grouped by ID. Each message is under the ID name
+  * Values in **bold** are fill-ins.
+  * Blank values are unused
+
+| **ID** | **STRING** | **NUM** |Description|
+|:-------|:-----------|:--------|:----------|
+|_loader_|**SCRIPT\_NAME**|**LINK\_NUM**|Tells SCRIPT\_NAME (which is a recording modules) to load itself into LINK\_NUM|
+|_root_|  | | |
+|  | ACK ||Respond to children (They send SYN)|
+|  |end||Tell child scripts to discard unused scripts|
+|  |playback| **MAX\_FRAMES** |Tell the LPA Player script to enter the playback state|
+|  |cap| **FRAME** |Tells the children to capture their current state and save it in FRAME|
+|  |ff| **FRAME** |Tells the children to go forward to the FRAME|
+|  |rwd| **FRAME** |Tells the children to go backwards to the FRAME|
+|  |reset| **FRAME** |Tell sthe children to reset their state to FRAME|
+|  |setup|  |Start the setup in child module|
+|_link_|  | | |
+|  |<CSV of all scripts>|1 |Tell the LPA Editor what scripts this object has|
+|  |SYN|0 |Try to syncronize with the LPA Editor script|
+|  |  | **MODULENUM** |Announces the number of record modules currently in the linked prim (send\_num used as ID)|
+|_wizard_|  | | |
+|  |lpa\_back||Tell LPA Player to play animations backward (Reverse)|
+|  |lpa\_brang off||Tell LPA Player to play looped animations normally (Loops wrap around)|
+|  |lpa\_brang on||Tell LPA Player to play animations in Boomerange mode (Back and Forth)|
+|  |lpa\_capture| **FRAME** |Tell LPA Editor to capture the current state in FRAME|
+|  |lpa\_done||Tell LPA Editor to end the capture stage and clean up|
+|  |lpa\_ff||Tell LPA Editor to set all prims forward one frame|
+|  |lpa\_fwd||Tell LPA Player to play animations forward (Normal)|
+|  |lpa\_loop off||Tell LPA Player to stop animations after they finish (No Loop)|
+|  |lpa\_loop on||Tell LPA Player to loop animations|
+|  |lpa\_rwd||Tell LPA Editor to set all prims back one frame|
+|  |lpa\_sdn||Tell LPA Player to remove .1 seconds from the wait time between frames (Faster)|
+|  |lpa\_start||Tell LPA Player to start the animation with the current parameters|
+|  |lpa\_stop||Tell LPA Player to stop the current animation|
+|  |lpa\_sup||Tell LPA Player to add .1 seconds to the wait time between frames (Slower)|
+|  |setup||Tell LPA Editor to go into setup mode|
+|_player_|  | | |
+|  |brang| **BOOMERANG** |Announcement of the BOOMERANG status (TRUE or FALSE)|
+|  |direction| **DIRECTION** |Announcement of the playback direction (1 = Forward, -1 = Backward)|
+|  |frame| **FRAME** |Tell all children to set their state to FRAME|
+|  |loop| **LOOP** |Announcement of the LOOP status (TRUE or FALSE)|
+|  |play| **SPEED** |Announcement of the playback SPEED (in tenths of a second)|

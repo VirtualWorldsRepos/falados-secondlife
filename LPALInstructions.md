@@ -1,0 +1,123 @@
+# Linked Prim Animator Lite #
+By: Falados Kapuskas
+Date: 12/27/2007
+Version: 1.07
+
+First, thank you for choosing Linked Prim Animator Lite (LPAL) for your linked prim animation needs.  I'll try my very hardest to make this
+processes as painless as possible.  There are several features you should know about before you begin so here is the run-down.
+
+## Features / Limitations ##
+
+### Features ###
+  1. LPAL is modular - Each LPAL Frame Capture script captures one clearly labeled element of the linked prims.
+  1. LPAL is a dialog-based setup.
+  1. LPAL has protection against lost dialogs
+  1. Only the one **LPAL Frame Controller** needs to be copied into the linked prims you would like to track
+  1. The LPAL link-message protocol is documented.  You may use this to make scripts compatible with LPAL. **LPAL Protocol**
+  1. Since LPAL is Open Source, you can freely modify it to suite your needs.  Just make sure you release your changes to the public under the GPL.
+
+### Limitations ###
+  1. After you have quit the Wizard, it will default to deleting itself.  This is to reduce lag. You may use the **Example Replay Script** which is a small portion of the wizard (used exclusively for playback).  You simply drag this script into the root and touch the object to begin.
+  1. Resizing the object or otherwise altering it after the animation has been publish will most likely break the animation.
+  1. Second Life has some interpolation (tweening), but it only goes so far. The animations will always look slightly choppy.
+  1. LPAL Will only record the quantity for which you have modules.  You may freely make more modules as long as they are also released GPL (Derived Works)
+  1. Although LPAL can handle practically any number of prims and snapshots, the less you use, the smoother the animation will be.
+  1. Prims can only be moved no more than 10 meters from the root prim (This is a SL Limitation)
+
+## Setup ##
+
+### Quick Start ###
+  1. Put the following scripts in your root prim.
+    * LPAL Editor
+    * LPAL Player
+    * LPAL Wizard
+    * One or more LPAL Frame Capture (<
+
+&lt;TYPE&gt;
+
+>) Script
+
+  1. Put the following in all child prims
+    * LPAL Frame Controller
+  1. Chat: **/55 lpa\_wizard**
+  1. Follow the Capture Dialog
+  1. Move child prims around and press Capture to save the
+  1. Press (Done) on the capture dialog when you are finished editing
+  1. Use the player wizard to play back your animation
+  1. When done, press Quit
+  1. To play the animation back later, use a script to send link messages using the LPAL Protocol
+
+![![](http://img503.imageshack.us/img503/2441/LPALDirectory.th.png)](http://img503.imageshack.us/my.php?image=LPALDirectory.png)
+
+See the information about the Capture and Playback stages for more detailed information.
+
+### Setup Details ###
+
+First, you must start off with some sculpture you wish to animate. The best way is to start making a project with all the children having a LPAL Frame Controller
+
+In each child prim, place one LPAL Frame Controller script.
+
+In the Root Prim, place all the setup scripts and as many modules as you'd like to track.
+These scripts are mandatory:
+  * LPAL Player
+  * LPAL Wizard
+  * LPAL Editor
+You may include one or more (or all) of these scripts:
+  * LPAL Frame Capture (_TYPE_)
+
+If you wish to record other quantities, use the template and fill in the blanks with your code.
+
+Once you have set up your model with these scripts, you are ready for editing.
+Type this to begin: **/55 lpa\_wizard**
+
+You should now be getting some messages alerting you to the status of the setup.  There should be a percentage that increases over time.  Each prim that you have dropped an LPAL Frame Controller script into will be loaded with all the LPAL Frame Capture modules you put in the Root Prim.
+
+## Capture Stage ##
+
+After the setup is completed, you should be presented with a dialog. As with almost any dialog, if lose it, just type /55 lpa\_lost to get it back. You should notice there are several options.
+
+![![](http://img503.imageshack.us/img503/5421/lpa-capture.th.png)](http://img503.imageshack.us/my.php?image=lpa-capture.png)
+
+| **Buttons** | **What they do** |
+|:------------|:-----------------|
+| << | Go back 1 frame |
+| >> | Go forward 1 frame |
+| Capture Frame | Record the state of the prims and go to the next frame |
+| Origin | Copy the prim attributes at frame 0 to the current frame |
+| Done| Finish the animation (Clean up, and go to playback) |
+
+
+## Playback Stage ##
+This wizard has a playback stage where you can see your creation come to life.
+
+![![](http://img503.imageshack.us/img503/2913/lpa-play.th.png)](http://img503.imageshack.us/my.php?image=lpa-play.png)
+
+| **Buttons** | **What they do** |
+|:------------|:-----------------|
+| Play | Play the animation |
+| Pause | Stop the animation |
+| Backward | Play Direction is set in reverse |
+| Forward | Play direction is set forward |
+| [ ] Loop | Play the animation Looped |
+| [ ] Boomerang | Animations play start to end to start, instead of start to end, start to end.  (Ping-Pong vs Treadmill) |
+| Speed Up | Decrease the frame time interval by .1 seconds (To a minimum of .2 seconds) |
+| Speed Down | Increase the frame time interval by .1 seconds |
+| Quit | Finish playing back (Kill the wizard) |
+
+## Lost Dialogs ##
+
+This has been mentioned before, but if, for whatever reason, you lose a dialog either by accidentally ignoring it or through some other fluke, you can always get it back by typing **/55 lpa\_lost**
+
+## Copyleft ##
+LPAL is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+LPAL is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with LPAL.  If not, see http://www.gnu.org/licenses/.
